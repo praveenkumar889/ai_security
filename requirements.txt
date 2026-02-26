@@ -1,0 +1,24 @@
+# SentinelSQL — Layer 01 Dependencies
+
+# Core
+fastapi
+uvicorn[standard]
+pydantic
+
+# JWT & Auth
+python-jose[cryptography]
+authlib
+httpx
+
+# LDAP (optional — only needed if using LDAPProvider)
+# python-ldap
+
+# SAML (optional — only needed if using SAMLProvider)
+# python3-saml
+
+# Testing
+pytest
+pytest-asyncio
+
+# Utilities
+python-dotenv

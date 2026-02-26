@@ -1,0 +1,490 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>SentinelSQL — Dashboard</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500;600&display=swap"
+        rel="stylesheet" />
+    <style>
+        *,
+        *::before,
+        *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        :root {
+            --apollo-teal: #0B6E6E;
+            --apollo-teal-lt: #0E8F8F;
+            --surface: #FAFAF8;
+            --card: #FFFFFF;
+            --border: #E8E4DC;
+            --text-primary: #1A1A1A;
+            --text-secondary: #5C5C5C;
+            --text-muted: #9A9A9A;
+        }
+
+        body {
+            font-family: 'DM Sans', sans-serif;
+            background: var(--surface);
+            color: var(--text-primary);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* ── HEADER ─────────────────────────────────────────────────────────── */
+        header {
+            background: var(--apollo-teal);
+            color: white;
+            padding: 16px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        .brand-logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .brand-icon {
+            width: 36px;
+            height: 36px;
+            background: rgba(255, 255, 255, 0.12);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 16px;
+        }
+
+        .brand-name {
+            font-family: 'DM Serif Display', serif;
+            font-size: 20px;
+        }
+
+        .brand-name span {
+            color: rgba(255, 255, 255, 0.6);
+            font-style: italic;
+        }
+
+        .user-nav {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .session-timer {
+            font-size: 13px;
+            font-weight: 500;
+            color: rgba(255, 255, 255, 0.8);
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            padding: 6px 12px;
+            background: rgba(0, 0, 0, 0.15);
+            border-radius: 20px;
+        }
+
+        .btn-logout {
+            background: transparent;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            color: white;
+            padding: 8px 16px;
+            border-radius: 6px;
+            font-size: 13px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .btn-logout:hover {
+            background: white;
+            color: var(--apollo-teal);
+        }
+
+        /* ── MAIN CONTENT ───────────────────────────────────────────────────── */
+        main {
+            flex: 1;
+            padding: 40px;
+            max-width: 1200px;
+            margin: 0 auto;
+            width: 100%;
+            display: grid;
+            grid-template-columns: 320px 1fr;
+            gap: 32px;
+        }
+
+        /* Sidebar Context Card */
+        .context-card {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.02);
+            height: fit-content;
+        }
+
+        .user-header {
+            padding: 24px;
+            text-align: center;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .avatar {
+            width: 72px;
+            height: 72px;
+            border-radius: 50%;
+            background: var(--apollo-teal);
+            color: white;
+            font-size: 24px;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 16px;
+        }
+
+        .user-name {
+            font-family: 'DM Serif Display', serif;
+            font-size: 22px;
+            margin-bottom: 4px;
+        }
+
+        .user-role {
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--text-secondary);
+            letter-spacing: 0.5px;
+        }
+
+        .context-details {
+            padding: 20px 24px;
+        }
+
+        .detail-row {
+            margin-bottom: 16px;
+        }
+
+        .detail-row:last-child {
+            margin-bottom: 0;
+        }
+
+        .detail-label {
+            font-size: 11px;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-weight: 600;
+            margin-bottom: 4px;
+        }
+
+        .detail-value {
+            font-size: 14px;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 4px 10px;
+            border-radius: 12px;
+            font-size: 11px;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+        }
+
+        /* Main Area - Permissions */
+        .permissions-area h2 {
+            font-family: 'DM Serif Display', serif;
+            font-size: 28px;
+            margin-bottom: 8px;
+            color: var(--apollo-teal);
+        }
+
+        .permissions-area p {
+            color: var(--text-secondary);
+            margin-bottom: 24px;
+            font-size: 15px;
+        }
+
+        .cards-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+            gap: 16px;
+        }
+
+        .perm-card {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 20px;
+            transition: all 0.2s;
+        }
+
+        .perm-card:hover {
+            border-color: var(--apollo-teal-lt);
+            box-shadow: 0 4px 12px rgba(11, 110, 110, 0.08);
+            transform: translateY(-2px);
+        }
+
+        .perm-icon {
+            font-size: 24px;
+            margin-bottom: 12px;
+        }
+
+        .perm-title {
+            font-weight: 600;
+            font-size: 15px;
+            margin-bottom: 6px;
+        }
+
+        .perm-desc {
+            font-size: 13px;
+            color: var(--text-secondary);
+            line-height: 1.5;
+        }
+
+        /* Query Box (Layer 02 Entry Point) */
+        .query-box {
+            margin-top: 40px;
+            background: #F3F8F8;
+            border: 1px solid var(--apollo-teal-lt);
+            border-radius: 12px;
+            padding: 24px;
+        }
+
+        .query-box h3 {
+            font-size: 16px;
+            color: var(--apollo-teal);
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .query-input-wrapper {
+            display: flex;
+            gap: 12px;
+        }
+
+        .query-input-wrapper input {
+            flex: 1;
+            padding: 14px 20px;
+            border: 1px solid rgba(11, 110, 110, 0.2);
+            border-radius: 8px;
+            font-family: 'DM Sans', sans-serif;
+            font-size: 15px;
+            outline: none;
+        }
+
+        .query-input-wrapper input:focus {
+            border-color: var(--apollo-teal);
+            box-shadow: 0 0 0 3px rgba(11, 110, 110, 0.1);
+        }
+
+        .btn-query {
+            background: var(--apollo-teal);
+            color: white;
+            border: none;
+            padding: 0 24px;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            font-size: 15px;
+            transition: background 0.2s;
+        }
+
+        .btn-query:hover {
+            background: var(--apollo-teal-lt);
+        }
+
+        .query-hint {
+            margin-top: 10px;
+            font-size: 12px;
+            color: var(--text-secondary);
+        }
+    </style>
+</head>
+
+<body>
+
+    <header>
+        <div class="brand-logo">
+            <div class="brand-icon">🏥</div>
+            <div class="brand-name">Apollo <span>Hospitals</span></div>
+        </div>
+        <div class="user-nav">
+            <div class="session-timer">⏱ Session: <span id="timer">15:00</span></div>
+            <button class="btn-logout" id="logoutBtn">Log out →</button>
+        </div>
+    </header>
+
+    <main>
+        <!-- Left Context Panel -->
+        <aside class="context-card">
+            <div class="user-header">
+                <div class="avatar" id="avatarUi">...</div>
+                <div class="user-name" id="userNameUi">Loading...</div>
+                <div class="user-role" id="userRoleUi">...</div>
+            </div>
+            <div class="context-details">
+                <div class="detail-row">
+                    <div class="detail-label">Clearance Level</div>
+                    <div class="detail-value">
+                        <span class="badge" id="clearanceBadge" style="background:#ddd; color:#333">...</span>
+                    </div>
+                </div>
+                <div class="detail-row">
+                    <div class="detail-label">Department</div>
+                    <div class="detail-value" id="departmentUi">...</div>
+                </div>
+                <div class="detail-row">
+                    <div class="detail-label">Effective Roles (Resolved)</div>
+                    <div class="detail-value" style="font-size: 12px; color: var(--text-secondary); line-height: 1.6;"
+                        id="rolesUi">
+                        ...
+                    </div>
+                </div>
+                <div class="detail-row">
+                    <div class="detail-label">Device Trust</div>
+                    <div class="detail-value">🛡️ <span id="deviceTrustUi">...</span></div>
+                </div>
+            </div>
+        </aside>
+
+        <!-- Right Permissions & Query Panel -->
+        <section class="permissions-area">
+            <h2>Your Secure Workspace</h2>
+            <p>Based on your <strong id="inlineClearanceUi">...</strong> clearance, you have access to the following
+                modules. All actions are logged.</p>
+
+            <div class="cards-grid" id="permissionsGrid">
+                <!-- Generated via JS -->
+            </div>
+
+            <div class="query-box">
+                <h3>✨ SentinelSQL AI Assistant</h3>
+                <div class="query-input-wrapper">
+                    <input type="text" placeholder="Ask a question about your data..." id="queryInput" />
+                    <button class="btn-query">Ask →</button>
+                </div>
+                <div class="query-hint">
+                    Your query will be evaluated against Layer 02 (Knowledge Graph) using your current SecurityContext.
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <script>
+        let sessionExp = 0;
+        let timerInterval;
+
+        async function fetchDashboardData() {
+            const token = sessionStorage.getItem('session_token');
+            if (!token) {
+                window.location.href = '/';
+                return;
+            }
+
+            try {
+                const resp = await fetch('/auth/me', {
+                    headers: {
+                        'Authorization': `Bearer ${token}`
+                    }
+                });
+
+                if (!resp.ok) {
+                    throw new Error('Session invalid');
+                }
+
+                const data = await resp.json();
+                renderDashboard(data);
+
+            } catch (err) {
+                console.error(err);
+                sessionStorage.removeItem('session_token');
+                window.location.href = '/';
+            }
+        }
+
+        function renderDashboard(data) {
+            // Left panel mapping
+            document.getElementById('avatarUi').textContent = data.avatar_initials;
+            document.getElementById('avatarUi').style.background = data.avatar_color;
+            document.getElementById('userNameUi').textContent = data.display_name;
+            document.getElementById('userRoleUi').textContent = data.role.replace(/_/g, ' ');
+
+            const clearanceBadge = document.getElementById('clearanceBadge');
+            clearanceBadge.textContent = data.clearance_level;
+            clearanceBadge.style.background = `${data.badge_color}25`; // 15% opacity back
+            clearanceBadge.style.color = data.badge_color;
+            clearanceBadge.style.border = `1px solid ${data.badge_color}50`;
+
+            document.getElementById('inlineClearanceUi').textContent = data.clearance_level;
+
+            document.getElementById('departmentUi').textContent = data.department_label;
+            document.getElementById('rolesUi').innerHTML = data.effective_roles.map(r => `• ${r}`).join('<br/>');
+            document.getElementById('deviceTrustUi').textContent = data.device_trust;
+
+            // Right panel permissions mapping
+            const grid = document.getElementById('permissionsGrid');
+            grid.innerHTML = '';
+            data.permissions.forEach(perm => {
+                grid.innerHTML += `
+        <div class="perm-card">
+          <div class="perm-icon">${perm.icon}</div>
+          <div class="perm-title">${perm.label}</div>
+          <div class="perm-desc">${perm.desc}</div>
+        </div>
+      `;
+            });
+
+            // Setup timer
+            sessionExp = data.expires_at * 1000; // ms
+            updateTimer();
+            timerInterval = setInterval(updateTimer, 1000);
+        }
+
+        function updateTimer() {
+            const now = Date.now();
+            const remaining = Math.max(0, sessionExp - now);
+
+            if (remaining === 0) {
+                clearInterval(timerInterval);
+                alert("Session expired. Please log in again.");
+                sessionStorage.removeItem('session_token');
+                window.location.href = '/';
+                return;
+            }
+
+            const mins = Math.floor(remaining / 60000);
+            const secs = Math.floor((remaining % 60000) / 1000);
+            document.getElementById('timer').textContent =
+                `${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
+        }
+
+        document.getElementById('logoutBtn').addEventListener('click', async () => {
+            sessionStorage.removeItem('session_token');
+            await fetch('/auth/logout', { method: 'POST' });
+            window.location.href = '/';
+        });
+
+        // Init
+        fetchDashboardData();
+    </script>
+</body>
+
+</html>

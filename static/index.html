@@ -1,0 +1,749 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Apollo Hospitals — Sign In</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Outfit:wght@300;400;500;600&display=swap"
+    rel="stylesheet" />
+  <style>
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    :root {
+      --teal: #0B6E6E;
+      --dark: #063E3E;
+      --gold: #C9A84C;
+      --glass: rgba(8, 32, 32, 0.75);
+      --border: rgba(255, 255, 255, 0.14);
+      --txt: rgba(255, 255, 255, 0.92);
+      --muted: rgba(255, 255, 255, 0.42);
+      --in-bg: rgba(255, 255, 255, 0.07);
+      --in-border: rgba(255, 255, 255, 0.14);
+      --err: #F87171;
+    }
+
+    body {
+      font-family: 'Outfit', sans-serif;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      position: relative;
+      background: #041818;
+    }
+
+    /* ── BG ─────────────────────────────────────── */
+    .bg {
+      position: fixed;
+      inset: 0;
+      z-index: 0;
+      background: linear-gradient(170deg, #0a1628 0%, #0d2d3a 28%, #0a3d3d 58%, #041818 100%);
+    }
+
+    .stars {
+      position: absolute;
+      inset: 0;
+      background-image:
+        radial-gradient(1px 1px at 8% 12%, rgba(255, 255, 255, .6) 0%, transparent 100%),
+        radial-gradient(1px 1px at 22% 7%, rgba(255, 255, 255, .4) 0%, transparent 100%),
+        radial-gradient(1.5px 1.5px at 38% 18%, rgba(255, 255, 255, .5) 0%, transparent 100%),
+        radial-gradient(1px 1px at 52% 10%, rgba(255, 255, 255, .3) 0%, transparent 100%),
+        radial-gradient(1px 1px at 67% 15%, rgba(255, 255, 255, .5) 0%, transparent 100%),
+        radial-gradient(1.5px 1.5px at 80% 8%, rgba(255, 255, 255, .4) 0%, transparent 100%),
+        radial-gradient(1px 1px at 91% 20%, rgba(255, 255, 255, .6) 0%, transparent 100%),
+        radial-gradient(1px 1px at 44% 5%, rgba(255, 255, 255, .5) 0%, transparent 100%),
+        radial-gradient(1px 1px at 72% 3%, rgba(255, 255, 255, .4) 0%, transparent 100%),
+        radial-gradient(1px 1px at 16% 30%, rgba(255, 255, 255, .2) 0%, transparent 100%),
+        radial-gradient(1px 1px at 58% 28%, rgba(255, 255, 255, .3) 0%, transparent 100%);
+    }
+
+    .moon {
+      position: absolute;
+      top: 7%;
+      right: 11%;
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      background: radial-gradient(circle at 35% 35%, #FFF9E6, #F5D98B);
+      box-shadow: 0 0 20px rgba(245, 217, 139, .3), 0 0 60px rgba(245, 217, 139, .1);
+      animation: mf 8s ease-in-out infinite;
+    }
+
+    @keyframes mf {
+
+      0%,
+      100% {
+        transform: translateY(0)
+      }
+
+      50% {
+        transform: translateY(-6px)
+      }
+    }
+
+    .moon::after {
+      content: '';
+      position: absolute;
+      inset: -14px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(245, 217, 139, .08) 0%, transparent 70%);
+    }
+
+    .hosp-wrap {
+      position: absolute;
+      bottom: 55px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: min(1100px, 100vw);
+      pointer-events: none;
+    }
+
+    .ground {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 60px;
+      background: linear-gradient(to top, #020e0e, #041414 60%, transparent);
+    }
+
+    .trees {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 130px;
+      background:
+        radial-gradient(ellipse 58px 78px at 7% 100%, #031818 0%, transparent 70%),
+        radial-gradient(ellipse 44px 62px at 13% 90%, #041f1f 0%, transparent 70%),
+        radial-gradient(ellipse 50px 72px at 3% 95%, #031414 0%, transparent 70%),
+        radial-gradient(ellipse 58px 78px at 93% 100%, #031818 0%, transparent 70%),
+        radial-gradient(ellipse 44px 62px at 87% 90%, #041f1f 0%, transparent 70%),
+        radial-gradient(ellipse 50px 72px at 97% 95%, #031414 0%, transparent 70%);
+    }
+
+    /* ── CARD ────────────────────────────────────── */
+    .card-wrap {
+      position: relative;
+      z-index: 10;
+      width: 410px;
+      animation: reveal .65s cubic-bezier(.16, 1, .3, 1) both;
+    }
+
+    @keyframes reveal {
+      from {
+        opacity: 0;
+        transform: translateY(22px) scale(.97)
+      }
+
+      to {
+        opacity: 1;
+        transform: none
+      }
+    }
+
+    .card {
+      background: var(--glass);
+      backdrop-filter: blur(26px) saturate(1.4);
+      -webkit-backdrop-filter: blur(26px) saturate(1.4);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 42px 38px 34px;
+      box-shadow: 0 28px 72px rgba(0, 0, 0, .65), 0 0 0 1px rgba(255, 255, 255, .04) inset, 0 1px 0 rgba(255, 255, 255, .07) inset;
+    }
+
+    .card-hd {
+      text-align: center;
+      margin-bottom: 30px;
+    }
+
+    .logo {
+      width: 50px;
+      height: 50px;
+      margin: 0 auto 14px;
+      background: linear-gradient(135deg, #0B6E6E, #0d9090);
+      border-radius: 13px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 22px;
+      box-shadow: 0 6px 22px rgba(11, 110, 110, .45);
+      border: 1px solid rgba(255, 255, 255, .1);
+    }
+
+    .h-name {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 25px;
+      font-weight: 600;
+      color: var(--txt);
+      letter-spacing: .3px;
+      margin-bottom: 3px;
+    }
+
+    .h-name span {
+      font-style: italic;
+      color: var(--gold);
+    }
+
+    .h-sub {
+      font-size: 10.5px;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+
+    .divider {
+      height: 1px;
+      background: linear-gradient(to right, transparent, var(--border), transparent);
+      margin: 0 0 26px;
+    }
+
+    /* Pills */
+    .pill-lbl {
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 9px;
+    }
+
+    .pills {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 24px;
+    }
+
+    .pill {
+      flex: 1;
+      padding: 8px 0;
+      border-radius: 10px;
+      font-size: 12px;
+      font-weight: 600;
+      cursor: pointer;
+      border: 1.5px solid var(--in-border);
+      transition: all .2s cubic-bezier(.34, 1.56, .64, 1);
+      text-align: center;
+      color: rgba(255, 255, 255, .6);
+      background: var(--in-bg);
+      user-select: none;
+    }
+
+    .pill:hover {
+      transform: translateY(-2px);
+      color: #fff;
+    }
+
+    .pill.active {
+      color: #fff;
+      transform: translateY(-1px);
+      box-shadow: 0 4px 14px rgba(0, 0, 0, .3);
+    }
+
+    .pill[data-u="dr.arjun"].active {
+      background: rgba(14, 165, 233, .18);
+      border-color: #0EA5E9;
+      box-shadow: 0 4px 18px rgba(14, 165, 233, .22);
+    }
+
+    .pill[data-u="nurse.priya"].active {
+      background: rgba(16, 185, 129, .18);
+      border-color: #10B981;
+      box-shadow: 0 4px 18px rgba(16, 185, 129, .22);
+    }
+
+    .pill[data-u="pharma.ravi"].active {
+      background: rgba(236, 72, 153, .18);
+      border-color: #EC4899;
+      box-shadow: 0 4px 18px rgba(236, 72, 153, .22);
+    }
+
+    /* Fields */
+    .field {
+      margin-bottom: 15px;
+    }
+
+    .field-lbl {
+      font-size: 10.5px;
+      font-weight: 600;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 7px;
+      display: block;
+    }
+
+    .fw {
+      position: relative;
+    }
+
+    .fi {
+      position: absolute;
+      left: 13px;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 13px;
+      opacity: .38;
+      pointer-events: none;
+    }
+
+    .fw input {
+      width: 100%;
+      padding: 12px 16px 12px 38px;
+      background: var(--in-bg);
+      border: 1.5px solid var(--in-border);
+      border-radius: 10px;
+      font-size: 14px;
+      font-family: 'Outfit', sans-serif;
+      color: var(--txt);
+      outline: none;
+      transition: border-color .2s, background .2s, box-shadow .2s;
+      caret-color: var(--gold);
+    }
+
+    .fw input::placeholder {
+      color: rgba(255, 255, 255, .2);
+    }
+
+    .fw input:focus {
+      border-color: rgba(201, 168, 76, .52);
+      background: rgba(255, 255, 255, .09);
+      box-shadow: 0 0 0 3px rgba(201, 168, 76, .1);
+    }
+
+    .fw input.ef {
+      border-color: rgba(248, 113, 113, .45);
+      box-shadow: 0 0 0 3px rgba(248, 113, 113, .08);
+    }
+
+    input[type="password"] {
+      letter-spacing: 3px;
+    }
+
+    .tpw {
+      position: absolute;
+      right: 11px;
+      top: 50%;
+      transform: translateY(-50%);
+      background: none;
+      border: none;
+      cursor: pointer;
+      color: var(--muted);
+      font-size: 13px;
+      padding: 4px;
+      transition: color .2s;
+    }
+
+    .tpw:hover {
+      color: var(--txt);
+    }
+
+    /* Error */
+    .err {
+      display: none;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 14px;
+      background: rgba(248, 113, 113, .1);
+      border: 1px solid rgba(248, 113, 113, .22);
+      border-radius: 8px;
+      font-size: 13px;
+      color: var(--err);
+      margin-bottom: 15px;
+    }
+
+    .err.show {
+      display: flex;
+    }
+
+    /* Button */
+    .btn {
+      width: 100%;
+      padding: 13px;
+      margin-top: 3px;
+      background: linear-gradient(135deg, #0B6E6E, #0d9090);
+      color: #fff;
+      border: 1px solid rgba(255, 255, 255, .08);
+      border-radius: 10px;
+      font-size: 14px;
+      font-weight: 600;
+      font-family: 'Outfit', sans-serif;
+      cursor: pointer;
+      letter-spacing: .4px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      transition: all .22s;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .btn::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, rgba(255, 255, 255, .08), transparent);
+      opacity: 0;
+      transition: opacity .2s;
+    }
+
+    .btn:hover:not(:disabled) {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 26px rgba(11, 110, 110, .48);
+    }
+
+    .btn:hover::before {
+      opacity: 1;
+    }
+
+    .btn:disabled {
+      opacity: .5;
+      cursor: not-allowed;
+      transform: none;
+    }
+
+    .sp {
+      display: none;
+      width: 16px;
+      height: 16px;
+      border: 2px solid rgba(255, 255, 255, .22);
+      border-top-color: #fff;
+      border-radius: 50%;
+      animation: spin .65s linear infinite;
+    }
+
+    .btn.loading .bt {
+      display: none;
+    }
+
+    .btn.loading .sp {
+      display: block;
+    }
+
+    @keyframes spin {
+      to {
+        transform: rotate(360deg)
+      }
+    }
+
+    /* Footer */
+    .card-ft {
+      text-align: center;
+      margin-top: 20px;
+      font-size: 11px;
+      color: var(--muted);
+    }
+
+    .card-ft span {
+      color: rgba(201, 168, 76, .65);
+      font-weight: 500;
+    }
+
+    @media(max-width:480px) {
+      .card-wrap {
+        width: calc(100vw - 28px)
+      }
+
+      .card {
+        padding: 34px 22px 28px
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="bg">
+    <div class="stars"></div>
+    <div class="moon"></div>
+
+    <!-- Hospital SVG -->
+    <div class="hosp-wrap">
+      <svg viewBox="0 0 1100 500" xmlns="http://www.w3.org/2000/svg" style="width:100%;display:block;">
+        <defs>
+          <radialGradient id="wg" cx="50%" cy="50%" r="50%">
+            <stop offset="0%" stop-color="#FFF5C0" stop-opacity=".85" />
+            <stop offset="100%" stop-color="#FFE680" stop-opacity=".25" />
+          </radialGradient>
+          <linearGradient id="ba" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stop-color="#0d2e3e" />
+            <stop offset="100%" stop-color="#071a1a" />
+          </linearGradient>
+          <linearGradient id="bb" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stop-color="#0a2433" />
+            <stop offset="100%" stop-color="#061414" />
+          </linearGradient>
+          <linearGradient id="bc" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stop-color="#0e3545" />
+            <stop offset="100%" stop-color="#082020" />
+          </linearGradient>
+          <radialGradient id="rg" cx="50%" cy="0%" r="60%">
+            <stop offset="0%" stop-color="#0B6E6E" stop-opacity=".12" />
+            <stop offset="100%" stop-color="transparent" />
+          </radialGradient>
+        </defs>
+        <!-- skyline bg -->
+        <rect x="0" y="280" width="80" height="220" fill="#071515" opacity=".75" />
+        <rect x="85" y="300" width="55" height="200" fill="#071818" opacity=".65" />
+        <rect x="145" y="260" width="70" height="240" fill="#061414" opacity=".75" />
+        <rect x="975" y="285" width="78" height="215" fill="#071515" opacity=".75" />
+        <rect x="958" y="308" width="52" height="192" fill="#071818" opacity=".65" />
+        <rect x="1042" y="268" width="58" height="232" fill="#061414" opacity=".75" />
+        <!-- left wing -->
+        <rect x="140" y="200" width="260" height="300" fill="url(#ba)" rx="2" />
+        <rect x="135" y="193" width="270" height="12" fill="#0d2e3e" rx="2" />
+        <rect x="178" y="170" width="42" height="26" fill="#0a2030" rx="2" />
+        <rect x="238" y="155" width="62" height="40" fill="#0a2030" rx="2" />
+        <rect x="318" y="173" width="38" height="22" fill="#0a2030" rx="2" />
+        <!-- center main -->
+        <rect x="380" y="100" width="340" height="400" fill="url(#bc)" rx="3" />
+        <rect x="372" y="92" width="356" height="14" fill="#0e3545" rx="2" />
+        <rect x="418" y="60" width="82" height="36" fill="#0b2d3d" rx="3" />
+        <rect x="518" y="45" width="64" height="50" fill="#0b2d3d" rx="3" />
+        <rect x="598" y="62" width="92" height="34" fill="#0b2d3d" rx="3" />
+        <!-- helipad -->
+        <circle cx="550" cy="74" r="27" fill="none" stroke="#1a4a5a" stroke-width="2" opacity=".55" />
+        <text x="550" y="79" text-anchor="middle" font-size="11" fill="rgba(255,255,255,.12)"
+          font-family="sans-serif">H</text>
+        <!-- right wing -->
+        <rect x="700" y="160" width="280" height="340" fill="url(#bb)" rx="2" />
+        <rect x="695" y="153" width="290" height="12" fill="#0a2433" rx="2" />
+        <rect x="728" y="128" width="52" height="30" fill="#082030" rx="2" />
+        <rect x="798" y="116" width="72" height="40" fill="#082030" rx="2" />
+        <rect x="888" y="133" width="48" height="24" fill="#082030" rx="2" />
+        <!-- entrance canopy -->
+        <polygon points="448,500 652,500 672,422 428,422" fill="#0a2833" opacity=".88" />
+        <rect x="426" y="417" width="248" height="8" fill="#0d3545" rx="1" />
+        <rect x="458" y="422" width="12" height="78" fill="#0a2535" />
+        <rect x="526" y="422" width="12" height="78" fill="#0a2535" />
+        <rect x="598" y="422" width="12" height="78" fill="#0a2535" />
+        <rect x="513" y="442" width="74" height="58" fill="rgba(14,165,233,.05)" rx="2" stroke="rgba(14,165,233,.1)"
+          stroke-width="1" />
+        <!-- cross -->
+        <rect x="543" y="398" width="14" height="30" fill="#0B6E6E" opacity=".65" rx="1" />
+        <rect x="533" y="407" width="34" height="12" fill="#0B6E6E" opacity=".65" rx="1" />
+        <!-- Apollo sign -->
+        <rect x="466" y="108" width="168" height="30" fill="rgba(11,110,110,.12)" rx="4" stroke="rgba(11,110,110,.22)"
+          stroke-width="1" />
+        <text x="550" y="128" text-anchor="middle" font-size="13" font-weight="600" fill="rgba(255,255,255,.28)"
+          font-family="Georgia,serif" letter-spacing="4">APOLLO</text>
+        <!-- windows left wing -->
+        <rect x="160" y="368" width="28" height="20" rx="2" fill="url(#wg)" opacity=".55" />
+        <rect x="200" y="368" width="28" height="20" rx="2" fill="url(#wg)" opacity=".7" />
+        <rect x="240" y="368" width="28" height="20" rx="2" fill="url(#wg)" opacity=".4" />
+        <rect x="280" y="368" width="28" height="20" rx="2" fill="url(#wg)" opacity=".62" />
+        <rect x="320" y="368" width="28" height="20" rx="2" fill="url(#wg)" opacity=".3" />
+        <rect x="360" y="368" width="28" height="20" rx="2" fill="url(#wg)" opacity=".5" />
+        <rect x="160" y="318" width="28" height="20" rx="2" fill="url(#wg)" opacity=".45" />
+        <rect x="200" y="318" width="28" height="20" rx="2" fill="url(#wg)" opacity=".6" />
+        <rect x="240" y="318" width="28" height="20" rx="2" fill="url(#wg)" opacity=".72" />
+        <rect x="280" y="318" width="28" height="20" rx="2" fill="url(#wg)" opacity=".32" />
+        <rect x="320" y="318" width="28" height="20" rx="2" fill="url(#wg)" opacity=".52" />
+        <rect x="360" y="318" width="28" height="20" rx="2" fill="url(#wg)" opacity=".42" />
+        <rect x="160" y="268" width="28" height="20" rx="2" fill="url(#wg)" opacity=".32" />
+        <rect x="200" y="268" width="28" height="20" rx="2" fill="url(#wg)" opacity=".48" />
+        <rect x="240" y="268" width="28" height="20" rx="2" fill="url(#wg)" opacity=".28" />
+        <rect x="280" y="268" width="28" height="20" rx="2" fill="url(#wg)" opacity=".58" />
+        <rect x="320" y="268" width="28" height="20" rx="2" fill="url(#wg)" opacity=".38" />
+        <rect x="360" y="268" width="28" height="20" rx="2" fill="url(#wg)" opacity=".22" />
+        <rect x="160" y="218" width="28" height="20" rx="2" fill="url(#wg)" opacity=".22" />
+        <rect x="200" y="218" width="28" height="20" rx="2" fill="url(#wg)" opacity=".32" />
+        <rect x="240" y="218" width="28" height="20" rx="2" fill="url(#wg)" opacity=".38" />
+        <rect x="280" y="218" width="28" height="20" rx="2" fill="url(#wg)" opacity=".18" />
+        <rect x="320" y="218" width="28" height="20" rx="2" fill="url(#wg)" opacity=".28" />
+        <rect x="360" y="218" width="28" height="20" rx="2" fill="url(#wg)" opacity=".42" />
+        <!-- windows center -->
+        <rect x="393" y="440" width="32" height="24" rx="2" fill="url(#wg)" opacity=".68" />
+        <rect x="438" y="440" width="32" height="24" rx="2" fill="url(#wg)" opacity=".48" />
+        <rect x="596" y="440" width="32" height="24" rx="2" fill="url(#wg)" opacity=".62" />
+        <rect x="641" y="440" width="32" height="24" rx="2" fill="url(#wg)" opacity=".38" />
+        <rect x="686" y="440" width="32" height="24" rx="2" fill="url(#wg)" opacity=".52" />
+        <rect x="393" y="390" width="32" height="24" rx="2" fill="url(#wg)" opacity=".52" />
+        <rect x="438" y="390" width="32" height="24" rx="2" fill="url(#wg)" opacity=".68" />
+        <rect x="483" y="390" width="32" height="24" rx="2" fill="url(#wg)" opacity=".38" />
+        <rect x="551" y="390" width="32" height="24" rx="2" fill="url(#wg)" opacity=".58" />
+        <rect x="596" y="390" width="32" height="24" rx="2" fill="url(#wg)" opacity=".32" />
+        <rect x="641" y="390" width="32" height="24" rx="2" fill="url(#wg)" opacity=".62" />
+        <rect x="686" y="390" width="32" height="24" rx="2" fill="url(#wg)" opacity=".48" />
+        <rect x="393" y="340" width="32" height="24" rx="2" fill="url(#wg)" opacity=".42" />
+        <rect x="438" y="340" width="32" height="24" rx="2" fill="url(#wg)" opacity=".58" />
+        <rect x="483" y="340" width="32" height="24" rx="2" fill="url(#wg)" opacity=".52" />
+        <rect x="551" y="340" width="32" height="24" rx="2" fill="url(#wg)" opacity=".32" />
+        <rect x="596" y="340" width="32" height="24" rx="2" fill="url(#wg)" opacity=".68" />
+        <rect x="641" y="340" width="32" height="24" rx="2" fill="url(#wg)" opacity=".42" />
+        <rect x="686" y="340" width="32" height="24" rx="2" fill="url(#wg)" opacity=".28" />
+        <rect x="393" y="290" width="32" height="24" rx="2" fill="url(#wg)" opacity=".28" />
+        <rect x="438" y="290" width="32" height="24" rx="2" fill="url(#wg)" opacity=".48" />
+        <rect x="483" y="290" width="32" height="24" rx="2" fill="url(#wg)" opacity=".38" />
+        <rect x="551" y="290" width="32" height="24" rx="2" fill="url(#wg)" opacity=".52" />
+        <rect x="596" y="290" width="32" height="24" rx="2" fill="url(#wg)" opacity=".32" />
+        <rect x="641" y="290" width="32" height="24" rx="2" fill="url(#wg)" opacity=".58" />
+        <rect x="686" y="290" width="32" height="24" rx="2" fill="url(#wg)" opacity=".42" />
+        <rect x="393" y="240" width="32" height="24" rx="2" fill="url(#wg)" opacity=".22" />
+        <rect x="438" y="240" width="32" height="24" rx="2" fill="url(#wg)" opacity=".38" />
+        <rect x="483" y="240" width="32" height="24" rx="2" fill="url(#wg)" opacity=".28" />
+        <rect x="551" y="240" width="32" height="24" rx="2" fill="url(#wg)" opacity=".42" />
+        <rect x="596" y="240" width="32" height="24" rx="2" fill="url(#wg)" opacity=".22" />
+        <rect x="641" y="240" width="32" height="24" rx="2" fill="url(#wg)" opacity=".32" />
+        <rect x="686" y="240" width="32" height="24" rx="2" fill="url(#wg)" opacity=".38" />
+        <rect x="393" y="188" width="32" height="24" rx="2" fill="url(#wg)" opacity=".18" />
+        <rect x="438" y="188" width="32" height="24" rx="2" fill="url(#wg)" opacity=".28" />
+        <rect x="551" y="188" width="32" height="24" rx="2" fill="url(#wg)" opacity=".22" />
+        <rect x="641" y="188" width="32" height="24" rx="2" fill="url(#wg)" opacity=".28" />
+        <rect x="686" y="188" width="32" height="24" rx="2" fill="url(#wg)" opacity=".18" />
+        <rect x="393" y="136" width="32" height="24" rx="2" fill="url(#wg)" opacity=".14" />
+        <rect x="438" y="136" width="32" height="24" rx="2" fill="url(#wg)" opacity=".18" />
+        <rect x="551" y="136" width="32" height="24" rx="2" fill="url(#wg)" opacity=".14" />
+        <rect x="641" y="136" width="32" height="24" rx="2" fill="url(#wg)" opacity=".18" />
+        <!-- windows right wing -->
+        <rect x="718" y="388" width="28" height="20" rx="2" fill="url(#wg)" opacity=".62" />
+        <rect x="756" y="388" width="28" height="20" rx="2" fill="url(#wg)" opacity=".42" />
+        <rect x="794" y="388" width="28" height="20" rx="2" fill="url(#wg)" opacity=".58" />
+        <rect x="832" y="388" width="28" height="20" rx="2" fill="url(#wg)" opacity=".32" />
+        <rect x="870" y="388" width="28" height="20" rx="2" fill="url(#wg)" opacity=".52" />
+        <rect x="908" y="388" width="28" height="20" rx="2" fill="url(#wg)" opacity=".38" />
+        <rect x="718" y="342" width="28" height="20" rx="2" fill="url(#wg)" opacity=".48" />
+        <rect x="756" y="342" width="28" height="20" rx="2" fill="url(#wg)" opacity=".62" />
+        <rect x="794" y="342" width="28" height="20" rx="2" fill="url(#wg)" opacity=".32" />
+        <rect x="832" y="342" width="28" height="20" rx="2" fill="url(#wg)" opacity=".52" />
+        <rect x="870" y="342" width="28" height="20" rx="2" fill="url(#wg)" opacity=".38" />
+        <rect x="908" y="342" width="28" height="20" rx="2" fill="url(#wg)" opacity=".58" />
+        <rect x="718" y="296" width="28" height="20" rx="2" fill="url(#wg)" opacity=".32" />
+        <rect x="756" y="296" width="28" height="20" rx="2" fill="url(#wg)" opacity=".48" />
+        <rect x="794" y="296" width="28" height="20" rx="2" fill="url(#wg)" opacity=".38" />
+        <rect x="832" y="296" width="28" height="20" rx="2" fill="url(#wg)" opacity=".22" />
+        <rect x="870" y="296" width="28" height="20" rx="2" fill="url(#wg)" opacity=".52" />
+        <rect x="908" y="296" width="28" height="20" rx="2" fill="url(#wg)" opacity=".32" />
+        <rect x="718" y="248" width="28" height="20" rx="2" fill="url(#wg)" opacity=".22" />
+        <rect x="756" y="248" width="28" height="20" rx="2" fill="url(#wg)" opacity=".38" />
+        <rect x="794" y="248" width="28" height="20" rx="2" fill="url(#wg)" opacity=".28" />
+        <rect x="832" y="248" width="28" height="20" rx="2" fill="url(#wg)" opacity=".42" />
+        <rect x="870" y="248" width="28" height="20" rx="2" fill="url(#wg)" opacity=".18" />
+        <rect x="908" y="248" width="28" height="20" rx="2" fill="url(#wg)" opacity=".32" />
+        <rect x="718" y="198" width="28" height="20" rx="2" fill="url(#wg)" opacity=".18" />
+        <rect x="756" y="198" width="28" height="20" rx="2" fill="url(#wg)" opacity=".28" />
+        <rect x="794" y="198" width="28" height="20" rx="2" fill="url(#wg)" opacity=".22" />
+        <rect x="832" y="198" width="28" height="20" rx="2" fill="url(#wg)" opacity=".32" />
+        <rect x="908" y="198" width="28" height="20" rx="2" fill="url(#wg)" opacity=".18" />
+        <!-- lamp posts -->
+        <rect x="293" y="398" width="4" height="77" fill="#0a2020" />
+        <rect x="283" y="396" width="24" height="4" fill="#0a2020" rx="2" />
+        <ellipse cx="283" cy="398" rx="6" ry="4" fill="#FFE580" opacity=".7" />
+        <ellipse cx="283" cy="402" rx="22" ry="10" fill="#FFE580" opacity=".06" />
+        <rect x="802" y="398" width="4" height="77" fill="#0a2020" />
+        <rect x="792" y="396" width="24" height="4" fill="#0a2020" rx="2" />
+        <ellipse cx="816" cy="398" rx="6" ry="4" fill="#FFE580" opacity=".7" />
+        <ellipse cx="816" cy="402" rx="22" ry="10" fill="#FFE580" opacity=".06" />
+        <!-- road -->
+        <rect x="0" y="483" width="1100" height="17" fill="#020a0a" />
+        <rect x="348" y="474" width="404" height="12" fill="#030e0e" />
+        <rect x="0" y="478" width="1100" height="22" fill="url(#rg)" opacity=".45" />
+      </svg>
+      <div class="ground"></div>
+      <div class="trees"></div>
+    </div>
+  </div>
+
+  <!-- CARD -->
+  <div class="card-wrap">
+    <div class="card">
+      <div class="card-hd">
+        <div class="logo">🏥</div>
+        <div class="h-name">Apollo <span>Hospitals</span></div>
+        <div class="h-sub">Staff Portal</div>
+      </div>
+      <div class="divider"></div>
+
+      <div class="pill-lbl">Sign in as</div>
+      <div class="pills">
+        <div class="pill active" data-u="dr.arjun">🩺 Doctor</div>
+        <div class="pill" data-u="nurse.priya">💉 Nurse</div>
+        <div class="pill" data-u="pharma.ravi">💊 Pharmacist</div>
+      </div>
+
+      <div class="err" id="errMsg"><span>⚠</span><span id="errTxt">Invalid credentials</span></div>
+
+      <form id="lf" autocomplete="off">
+        <div class="field">
+          <label class="field-lbl" for="un">Username</label>
+          <div class="fw"><span class="fi">👤</span>
+            <input type="text" id="un" name="username" placeholder="Enter username" value="dr.arjun" required />
+          </div>
+        </div>
+        <div class="field">
+          <label class="field-lbl" for="pw">Password</label>
+          <div class="fw"><span class="fi">🔑</span>
+            <input type="password" id="pw" name="password" placeholder="Enter password" value="Apollo@123" required />
+            <button type="button" class="tpw" id="tpw">👁</button>
+          </div>
+        </div>
+        <button type="submit" class="btn" id="sb">
+          <span class="bt">Sign In →</span>
+          <div class="sp"></div>
+        </button>
+      </form>
+
+      <div class="card-ft">Apollo Hospitals · <span>Secure Staff Access</span></div>
+    </div>
+  </div>
+
+  <script>
+    document.querySelectorAll('.pill').forEach(p => {
+      p.addEventListener('click', () => {
+        document.querySelectorAll('.pill').forEach(x => x.classList.remove('active'));
+        p.classList.add('active');
+        document.getElementById('un').value = p.dataset.u;
+        document.getElementById('pw').value = 'Apollo@123';
+        hide();
+      });
+    });
+    document.getElementById('tpw').addEventListener('click', () => {
+      const f = document.getElementById('pw');
+      f.type = f.type === 'password' ? 'text' : 'password';
+    });
+    function show(m) {
+      document.getElementById('errTxt').textContent = m;
+      document.getElementById('errMsg').classList.add('show');
+      document.getElementById('un').classList.add('ef');
+      document.getElementById('pw').classList.add('ef');
+    }
+    function hide() {
+      document.getElementById('errMsg').classList.remove('show');
+      document.getElementById('un').classList.remove('ef');
+      document.getElementById('pw').classList.remove('ef');
+    }
+    document.getElementById('lf').addEventListener('submit', async e => {
+      e.preventDefault(); hide();
+      const btn = document.getElementById('sb');
+      btn.classList.add('loading'); btn.disabled = true;
+      try {
+        const r = await fetch('/auth/login', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ username: document.getElementById('un').value.trim(), password: document.getElementById('pw').value })
+        });
+        const d = await r.json();
+        if (!r.ok) { show(d.detail || 'Login failed'); return; }
+        sessionStorage.setItem('session_token', d.session_token);
+        sessionStorage.setItem('user_data', JSON.stringify(d));
+        window.location.href = '/dashboard';
+      } catch { show('Connection error — is the server running?'); }
+      finally { btn.classList.remove('loading'); btn.disabled = false; }
+    });
+    document.getElementById('un').addEventListener('input', hide);
+    document.getElementById('pw').addEventListener('input', hide);
+  </script>
+</body>
+
+</html>
