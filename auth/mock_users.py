@@ -16,8 +16,6 @@ import os
 from dataclasses import dataclass
 from typing import Optional
 
-from layer01_identity.models import ClearanceLevel, UserProfile
-
 
 # ─── SIMPLE PASSWORD HASHING (no bcrypt dependency) ──────────────────────────
 # Uses PBKDF2-HMAC-SHA256 from Python stdlib — production-grade, no extra deps.
@@ -46,10 +44,7 @@ class MockUser:
     display_name: str
     password_hash: str
     role:         str          # Single IdP role — hierarchy resolver expands it
-    profile:      UserProfile
-    avatar_initials: str
-    avatar_color: str          # CSS color for avatar bubble
-    department_label: str      # Human-readable for UI
+    department:   str          # Added department
     is_active:    bool = True
 
 
@@ -59,119 +54,110 @@ _PASSWORD = "Apollo@123"
 _HASHED_PASSWORD = hash_password(_PASSWORD)
 
 MOCK_USERS: dict[str, MockUser] = {
-
-    "dr.arjun": MockUser(
-        username="dr.arjun",
-        display_name="Dr. Arjun Mehta",
+    "dr-patel-4521": MockUser(
+        username="dr-patel-4521",
+        display_name="Dr. Rajesh Patel",
         password_hash=_HASHED_PASSWORD,
-        role="ATTENDING_PHYSICIAN",
-        avatar_initials="AM",
-        avatar_color="#0EA5E9",
-        department_label="Cardiology · Apollo Hospitals Delhi",
-        profile=UserProfile(
-            user_id="dr.arjun",
-            department="Cardiology",
-            unit="Cardiac ICU",
-            facility="Apollo Hospitals Delhi",
-            provider_id="MCI-DL-2891",
-            clearance_level=ClearanceLevel.CONFIDENTIAL,
-            is_active=True,
-        ),
+        role="Attending_Physician",
+        department="Cardiology",
     ),
-
-    "nurse.priya": MockUser(
-        username="nurse.priya",
-        display_name="Priya Radhakrishnan",
+    "dr-sharma-1102": MockUser(
+        username="dr-sharma-1102",
+        display_name="Dr. Priya Sharma",
         password_hash=_HASHED_PASSWORD,
-        role="NURSE",
-        avatar_initials="PR",
-        avatar_color="#10B981",
-        department_label="ICU Nursing · Apollo Hospitals Chennai",
-        profile=UserProfile(
-            user_id="nurse.priya",
-            department="Nursing",
-            unit="Surgical ICU",
-            facility="Apollo Hospitals Chennai",
-            provider_id=None,
-            clearance_level=ClearanceLevel.INTERNAL,
-            is_active=True,
-        ),
+        role="Consulting_Physician",
+        department="Oncology",
     ),
-
-    "admin.suresh": MockUser(
-        username="admin.suresh",
-        display_name="Suresh Krishnamurthy",
+    "dr-reddy-2233": MockUser(
+        username="dr-reddy-2233",
+        display_name="Dr. Aditya Reddy",
         password_hash=_HASHED_PASSWORD,
-        role="ADMIN",
-        avatar_initials="SK",
-        avatar_color="#F59E0B",
-        department_label="Hospital Administration · Apollo Hospitals Hyderabad",
-        profile=UserProfile(
-            user_id="admin.suresh",
-            department="Administration",
-            unit="Operations",
-            facility="Apollo Hospitals Hyderabad",
-            provider_id=None,
-            clearance_level=ClearanceLevel.SECRET,
-            is_active=True,
-        ),
+        role="Emergency_Physician",
+        department="Emergency Medicine",
     ),
-
-    "analyst.deepa": MockUser(
-        username="analyst.deepa",
-        display_name="Deepa Sundaram",
+    "dr-iyer-3301": MockUser(
+        username="dr-iyer-3301",
+        display_name="Dr. Meera Iyer",
         password_hash=_HASHED_PASSWORD,
-        role="DATA_ANALYST",
-        avatar_initials="DS",
-        avatar_color="#8B5CF6",
-        department_label="Business Intelligence · Apollo Health Analytics",
-        profile=UserProfile(
-            user_id="analyst.deepa",
-            department="Data Analytics",
-            unit="Revenue Intelligence",
-            facility="Apollo Corporate HQ",
-            provider_id=None,
-            clearance_level=ClearanceLevel.CONFIDENTIAL,
-            is_active=True,
-        ),
+        role="Psychiatrist",
+        department="Psychiatry",
     ),
-
-    "pharma.ravi": MockUser(
-        username="pharma.ravi",
-        display_name="Ravi Thandapani",
+    "nurse-kumar-2847": MockUser(
+        username="nurse-kumar-2847",
+        display_name="Anita Kumar",
         password_hash=_HASHED_PASSWORD,
-        role="PHARMACIST",
-        avatar_initials="RT",
-        avatar_color="#EC4899",
-        department_label="Pharmacy · Apollo Hospitals Bangalore",
-        profile=UserProfile(
-            user_id="pharma.ravi",
-            department="Pharmacy",
-            unit="Inpatient Dispensary",
-            facility="Apollo Hospitals Bangalore",
-            provider_id="PCI-KA-4412",
-            clearance_level=ClearanceLevel.INTERNAL,
-            is_active=True,
-        ),
+        role="Registered_Nurse",
+        department="Cardiology",
     ),
-
-    "superadmin": MockUser(
-        username="superadmin",
-        display_name="Platform Super Admin",
+    "nurse-nair-3102": MockUser(
+        username="nurse-nair-3102",
+        display_name="Deepa Nair",
         password_hash=_HASHED_PASSWORD,
-        role="SUPER_ADMIN",
-        avatar_initials="SA",
-        avatar_color="#EF4444",
-        department_label="SentinelSQL Platform · All Facilities",
-        profile=UserProfile(
-            user_id="superadmin",
-            department="Platform Engineering",
-            unit="Security",
-            facility="ALL",
-            provider_id=None,
-            clearance_level=ClearanceLevel.TOP_SECRET,
-            is_active=True,
-        ),
+        role="ICU_Nurse",
+        department="Emergency Medicine",
+    ),
+    "nurse-singh-4455": MockUser(
+        username="nurse-singh-4455",
+        display_name="Rajesh Singh",
+        password_hash=_HASHED_PASSWORD,
+        role="Head_Nurse",
+        department="Neurology",
+    ),
+    "bill-maria-5521": MockUser(
+        username="bill-maria-5521",
+        display_name="Maria Fernandes",
+        password_hash=_HASHED_PASSWORD,
+        role="Billing_Clerk",
+        department="Billing & Revenue Cycle",
+    ),
+    "bill-suresh-5530": MockUser(
+        username="bill-suresh-5530",
+        display_name="Suresh Gupta",
+        password_hash=_HASHED_PASSWORD,
+        role="Revenue_Cycle_Analyst",
+        department="Billing & Revenue Cycle",
+    ),
+    "rev-james-6601": MockUser(
+        username="rev-james-6601",
+        display_name="James Thomas",
+        password_hash=_HASHED_PASSWORD,
+        role="Revenue_Cycle_Manager",
+        department="Billing & Revenue Cycle",
+    ),
+    "hr-priya-7701": MockUser(
+        username="hr-priya-7701",
+        display_name="Priya Mehta",
+        password_hash=_HASHED_PASSWORD,
+        role="HR_Manager",
+        department="Human Resources",
+    ),
+    "hr-dir-kapoor": MockUser(
+        username="hr-dir-kapoor",
+        display_name="Rohit Kapoor",
+        password_hash=_HASHED_PASSWORD,
+        role="HR_Director",
+        department="Human Resources",
+    ),
+    "it-admin-7801": MockUser(
+        username="it-admin-7801",
+        display_name="Vikram Joshi",
+        password_hash=_HASHED_PASSWORD,
+        role="IT_Administrator",
+        department="Information Technology",
+    ),
+    "hipaa-officer": MockUser(
+        username="hipaa-officer",
+        display_name="Dr. Sunita Verma",
+        password_hash=_HASHED_PASSWORD,
+        role="HIPAA_Privacy_Officer",
+        department="Compliance & Legal",
+    ),
+    "researcher-das": MockUser(
+        username="researcher-das",
+        display_name="Dr. Anirban Das",
+        password_hash=_HASHED_PASSWORD,
+        role="Clinical_Researcher",
+        department="Quality Assurance",
     ),
 }
 

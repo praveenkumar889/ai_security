@@ -1,20 +1,21 @@
-# SentinelSQL — Layer 01 Dependencies
+# SentinelSQL — Layer 01 & Layer 02 Dependencies
 
-# Core
+# Core Framework
 fastapi
 uvicorn[standard]
 pydantic
 
-# JWT & Auth
+# JWT & Authentication
 python-jose[cryptography]
 authlib
 httpx
 
-# LDAP (optional — only needed if using LDAPProvider)
-# python-ldap
+# Neo4j Graph Database (NEW - for user/role management)
+neo4j>=5.0.0
 
-# SAML (optional — only needed if using SAMLProvider)
-# python3-saml
+# Database (optional - for PostgreSQL fallback)
+asyncpg
+psycopg2-binary
 
 # Testing
 pytest

@@ -737,7 +737,7 @@
         if (!r.ok) { show(d.detail || 'Login failed'); return; }
         sessionStorage.setItem('session_token', d.session_token);
         sessionStorage.setItem('user_data', JSON.stringify(d));
-        window.location.href = '/dashboard';
+        window.location.href = '/dashboard?v=' + Date.now();
       } catch { show('Connection error — is the server running?'); }
       finally { btn.classList.remove('loading'); btn.disabled = false; }
     });

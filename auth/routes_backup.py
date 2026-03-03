@@ -19,7 +19,7 @@ from fastapi import APIRouter, Depends, Header, HTTPException, Request
 from pydantic import BaseModel
 
 from layer01_identity.context_builder import SecurityContextBuilder
-from layer01_identity.models import IdPClaims, SecurityContext, ClearanceLevel
+from layer01_identity.models import IdPClaims, SecurityContext
 from layer01_identity.role_resolver import BaseRoleResolver
 from layer01_identity.session_token import TokenError
 from .mock_users import ROLE_UI_META, MockUser, authenticate, get_user
@@ -68,8 +68,6 @@ class MeResponse(BaseModel):
     expires_at:       float
     permissions:      list[dict]
     badge_color:      str
-    allowed_domains:  list[str]
-    max_clearance_level: Optional[int] = None
 
 
 # ─── DEPENDENCY: GET CURRENT USER FROM SESSION TOKEN ──────────────────────────
@@ -133,6 +131,7 @@ async def login(
     logger.info(">>> [LOGIN] ✓ Credentials valid")
     logger.info("            display_name  = %s", mock_user.display_name)
     logger.info("            role          = %s", mock_user.role)
+    logger.info("            clearance     = %s", mock_user.profile.clearance_level.value)
     logger.info("            is_active     = %s", mock_user.is_active)
 
     # ── Step 2: Build IdPClaims ────────────────────────────────────────────
@@ -142,8 +141,7 @@ async def login(
         sub=mock_user.username,
         email=f"{mock_user.username}@apollohospitals.com",
         preferred_username=mock_user.display_name,
-        groups=[mock_user.role],  # ← Pass role from mock_users!
-        department=mock_user.department,
+        # WE DONT PASS GROUPS! We will fetch roles from Neo4j later.
         iss="mock-apollo-idp",
     )
     logger.info(">>> [LOGIN] ✓ IdPClaims built")
@@ -186,20 +184,6 @@ async def login(
     logger.info(">>> [LOGIN] ✓ BFS traversal complete — effective roles:")
     for r in context.effective_roles:
         logger.info("            + %s", r)
-        
-    # Apply clearance from Role Graph since Staff nodes don't exist yet
-    metadata = role_resolver.get_role_metadata(context.effective_roles)
-    max_lvl = metadata.get("max_clearance_level")
-    if max_lvl is not None:
-        level_map = {
-            0: ClearanceLevel.PUBLIC,
-            1: ClearanceLevel.INTERNAL,
-            2: ClearanceLevel.CONFIDENTIAL,
-            3: ClearanceLevel.SECRET,
-            4: ClearanceLevel.TOP_SECRET,
-        }
-        context.clearance_level = level_map.get(max_lvl, ClearanceLevel.PUBLIC)
-        logger.info(">>> [LOGIN] ✓ Neo4j Roles dictate Clearance Level: %s", context.clearance_level.value)
 
     # ── Step 5: Issue JWT session token ───────────────────────────────────
     logger.info("")
@@ -229,11 +213,11 @@ async def login(
         display_name=mock_user.display_name,
         role=context.raw_roles[0] if context.raw_roles else "BASE_USER",
         effective_roles=context.effective_roles,
-        clearance_level=context.clearance_level.value if hasattr(context.clearance_level, 'value') else str(context.clearance_level),
-        device_trust=context.device_trust.value if hasattr(context.device_trust, 'value') else str(context.device_trust),
-        department_label=mock_user.department,
-        avatar_initials="".join(p[0] for p in mock_user.display_name.replace("Dr. ", "").split() if p).upper()[:2],
-        avatar_color="#0EA5E9",
+        clearance_level=context.clearance_level,
+        device_trust=context.device_trust,
+        department_label=str(context.department) + " · " + str(context.facility),
+        avatar_initials=mock_user.avatar_initials,
+        avatar_color=mock_user.avatar_color,
         expires_at=context.expires_at,
     )
 
@@ -275,11 +259,6 @@ async def get_me(
     logger.info("          clearance       = %s", context.clearance_level)
     logger.info("          device_trust    = %s", context.device_trust)
     logger.info("          effective_roles = %s", context.effective_roles)
-    
-    # Fetch additional metadata straight from the role resolver
-    role_resolver: BaseRoleResolver = request.app.state.role_resolver
-    metadata = role_resolver.get_role_metadata(context.effective_roles)
-    
     logger.info("          permissions     = %d cards", len(ui_meta.get("permissions", [])))
     logger.info("")
 
@@ -289,19 +268,17 @@ async def get_me(
         username=mock_user.username,
         role=primary_role,
         effective_roles=context.effective_roles,
-        clearance_level=context.clearance_level.value if hasattr(context.clearance_level, 'value') else str(context.clearance_level),
-        device_trust=context.device_trust.value if hasattr(context.device_trust, 'value') else str(context.device_trust),
-        department=mock_user.department,
+        clearance_level=context.clearance_level,
+        device_trust=context.device_trust,
+        department=context.department,
         facility=context.facility,
-        department_label=mock_user.department,
-        avatar_initials="".join(p[0] for p in mock_user.display_name.replace("Dr. ", "").split() if p).upper()[:2],
-        avatar_color="#0EA5E9",
+        department_label=mock_user.department_label,
+        avatar_initials=mock_user.avatar_initials,
+        avatar_color=mock_user.avatar_color,
         session_id=context.session_id,
         expires_at=context.expires_at,
         permissions=ui_meta.get("permissions", []),
         badge_color=ui_meta.get("badge_color", "#64748B"),
-        allowed_domains=metadata.get("allowed_domains", []),
-        max_clearance_level=metadata.get("max_clearance_level")
     )
 
 
@@ -321,8 +298,8 @@ async def list_demo_users():
                 "username": u.username,
                 "display_name": u.display_name,
                 "role": u.role,
-                "department": u.department,
-                "clearance": "Fetched from DB at login",
+                "department": u.department_label,
+                "clearance": u.profile.clearance_level.value,
             }
             for u in MOCK_USERS.values()
         ],

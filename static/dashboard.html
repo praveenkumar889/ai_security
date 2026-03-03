@@ -342,20 +342,26 @@
             </div>
             <div class="context-details">
                 <div class="detail-row">
-                    <div class="detail-label">Clearance Level</div>
+                    <div class="detail-label">🔐 Max Clearance Level</div>
                     <div class="detail-value">
-                        <span class="badge" id="clearanceBadge" style="background:#ddd; color:#333">...</span>
+                        <span class="badge" id="clearanceBadge"
+                            style="background:#ddd; color:#333; font-size:14px;">...</span>
                     </div>
                 </div>
                 <div class="detail-row">
-                    <div class="detail-label">Department</div>
-                    <div class="detail-value" id="departmentUi">...</div>
+                    <div class="detail-label">🏢 Department</div>
+                    <div class="detail-value" id="departmentUi" style="font-size: 14px; font-weight: 500;">...</div>
                 </div>
                 <div class="detail-row">
-                    <div class="detail-label">Effective Roles (Resolved)</div>
-                    <div class="detail-value" style="font-size: 12px; color: var(--text-secondary); line-height: 1.6;"
-                        id="rolesUi">
-                        ...
+                    <div class="detail-label">📂 Allowed Domains</div>
+                    <div class="detail-value" style="font-size: 13px; color: var(--text-secondary); line-height: 1.6;">
+                        <span id="domainsUi">...</span>
+                    </div>
+                </div>
+                <div class="detail-row">
+                    <div class="detail-label">🧬 Effective Roles</div>
+                    <div class="detail-value" style="font-size: 13px; color: var(--text-secondary); line-height: 1.6;">
+                        <span id="rolesUi">...</span>
                     </div>
                 </div>
                 <div class="detail-row">
@@ -428,7 +434,7 @@
             document.getElementById('userRoleUi').textContent = data.role.replace(/_/g, ' ');
 
             const clearanceBadge = document.getElementById('clearanceBadge');
-            clearanceBadge.textContent = data.clearance_level;
+            clearanceBadge.textContent = data.max_clearance_level !== null ? data.max_clearance_level : '?';
             clearanceBadge.style.background = `${data.badge_color}25`; // 15% opacity back
             clearanceBadge.style.color = data.badge_color;
             clearanceBadge.style.border = `1px solid ${data.badge_color}50`;
@@ -436,7 +442,18 @@
             document.getElementById('inlineClearanceUi').textContent = data.clearance_level;
 
             document.getElementById('departmentUi').textContent = data.department_label;
-            document.getElementById('rolesUi').innerHTML = data.effective_roles.map(r => `• ${r}`).join('<br/>');
+
+            if (data.allowed_domains && data.allowed_domains.length > 0) {
+                document.getElementById('domainsUi').innerHTML = data.allowed_domains.map(d => `- ${d}`).join('<br/>');
+            } else {
+                document.getElementById('domainsUi').textContent = "None";
+            }
+
+            if (data.effective_roles && data.effective_roles.length > 0) {
+                document.getElementById('rolesUi').innerHTML = data.effective_roles.map(r => `- ${r}`).join('<br/>');
+            } else {
+                document.getElementById('rolesUi').textContent = "None";
+            }
             document.getElementById('deviceTrustUi').textContent = data.device_trust;
 
             // Right panel permissions mapping
@@ -479,7 +496,7 @@
         document.getElementById('logoutBtn').addEventListener('click', async () => {
             sessionStorage.removeItem('session_token');
             await fetch('/auth/logout', { method: 'POST' });
-            window.location.href = '/';
+            window.location.href = '/?v=' + Date.now();
         });
 
         // Init

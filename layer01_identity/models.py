@@ -146,6 +146,7 @@ class UserProfile(BaseModel):
     provider_id:     Optional[str] = None
     clearance_level: ClearanceLevel = ClearanceLevel.PUBLIC
     is_active:       bool = True
+    roles:           list[str] = Field(default_factory=list)
 
 
 # ─── API REQUEST / RESPONSE ───────────────────────────────────────────────────

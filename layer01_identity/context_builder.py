@@ -167,8 +167,8 @@ class SecurityContextBuilder:
             username=idp_claims.preferred_username or idp_claims.sub,
             email=idp_claims.email,
 
-            raw_roles=idp_claims.groups,
-            effective_roles=[],  # populated by RoleInheritanceResolver after build()
+            raw_roles=profile.roles if profile and profile.roles else idp_claims.groups,
+            effective_roles=[],
 
             department=profile.department if profile else idp_claims.department,
             unit=profile.unit if profile else None,

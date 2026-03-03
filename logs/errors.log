@@ -1,0 +1,145 @@
+2026-02-26 12:57:16 | WARNING  | sentinelsql.layer01.context_builder | Zero Trust: clearance downgraded SECRET → INTERNAL for user=admin.suresh (device_trust=unmanaged, fingerprint=personal-iphone)
+2026-02-26 12:57:16 | WARNING  | sentinelsql.layer01.context_builder | Zero Trust: clearance downgraded SECRET → INTERNAL for user=admin.suresh (device_trust=unknown, fingerprint=unknown)
+2026-02-26 12:57:16 | WARNING  | sentinelsql.layer01.context_builder | Zero Trust: clearance downgraded TOP_SECRET → INTERNAL for user=superadmin (device_trust=unmanaged, fingerprint=home-laptop-123)
+2026-02-26 12:57:16 | WARNING  | sentinelsql.layer01.context_builder | Zero Trust: clearance downgraded SECRET → INTERNAL for user=admin.suresh (device_trust=unmanaged, fingerprint=personal-iphone)
+2026-02-26 12:57:17 | WARNING  | sentinelsql.auth.routes      | >>> [LOGIN] ✗ FAILED — Invalid credentials for username='dr.arjun'
+2026-02-26 12:57:17 | WARNING  | sentinelsql.auth.routes      | >>> [LOGIN] ✗ FAILED — Invalid credentials for username='nonexistent.user'
+2026-02-26 12:57:19 | WARNING  | sentinelsql.auth.routes      | >>> [TOKEN] INVALID — Session token is invalid or tampered: Invalid header string: 'utf-8' codec can't decode byte 0x8a in position 0: invalid start byte
+2026-02-26 12:57:19 | WARNING  | sentinelsql.auth.routes      | >>> [TOKEN] FAILED — Authorization header missing 'Bearer ' prefix
+2026-02-26 12:57:19 | WARNING  | sentinelsql.auth.routes      | >>> [TOKEN] INVALID — Session token is invalid or tampered: Signature verification failed.
+2026-02-26 12:57:20 | WARNING  | sentinelsql.auth.routes      | >>> [TOKEN] INVALID — Session token is invalid or tampered: Not enough segments
+2026-02-26 12:57:20 | WARNING  | sentinelsql.auth.routes      | >>> [TOKEN] FAILED — Authorization header missing 'Bearer ' prefix
+2026-02-26 13:01:44 | WARNING  | sentinelsql.layer01.context_builder | Zero Trust: clearance downgraded SECRET → INTERNAL for user=admin.suresh (device_trust=unmanaged, fingerprint=personal-iphone)
+2026-02-26 13:01:44 | WARNING  | sentinelsql.layer01.context_builder | Zero Trust: clearance downgraded SECRET → INTERNAL for user=admin.suresh (device_trust=unknown, fingerprint=unknown)
+2026-02-26 13:01:44 | WARNING  | sentinelsql.layer01.context_builder | Zero Trust: clearance downgraded TOP_SECRET → INTERNAL for user=superadmin (device_trust=unmanaged, fingerprint=home-laptop-123)
+2026-02-26 13:01:44 | WARNING  | sentinelsql.layer01.context_builder | Zero Trust: clearance downgraded SECRET → INTERNAL for user=admin.suresh (device_trust=unmanaged, fingerprint=personal-iphone)
+2026-02-26 13:01:44 | WARNING  | sentinelsql.auth.routes      | >>> [LOGIN] ✗ FAILED — Invalid credentials for username='dr.arjun'
+2026-02-26 13:01:44 | WARNING  | sentinelsql.auth.routes      | >>> [LOGIN] ✗ FAILED — Invalid credentials for username='nonexistent.user'
+2026-02-26 13:01:47 | WARNING  | sentinelsql.auth.routes      | >>> [TOKEN] INVALID — Session token is invalid or tampered: Invalid header string: 'utf-8' codec can't decode byte 0x8a in position 0: invalid start byte
+2026-02-26 13:01:47 | WARNING  | sentinelsql.auth.routes      | >>> [TOKEN] FAILED — Authorization header missing 'Bearer ' prefix
+2026-02-26 13:01:47 | WARNING  | sentinelsql.auth.routes      | >>> [TOKEN] INVALID — Session token is invalid or tampered: Signature verification failed.
+2026-02-26 13:01:49 | WARNING  | sentinelsql.auth.routes      | >>> [TOKEN] INVALID — Session token is invalid or tampered: Not enough segments
+2026-02-26 13:01:49 | WARNING  | sentinelsql.auth.routes      | >>> [TOKEN] FAILED — Authorization header missing 'Bearer ' prefix
+2026-02-26 13:02:04 | WARNING  | sentinelsql.layer01.context_builder | Zero Trust: clearance downgraded SECRET → INTERNAL for user=admin.suresh (device_trust=unmanaged, fingerprint=personal-iphone)
+2026-02-26 13:02:04 | WARNING  | sentinelsql.layer01.context_builder | Zero Trust: clearance downgraded SECRET → INTERNAL for user=admin.suresh (device_trust=unknown, fingerprint=unknown)
+2026-02-26 13:02:04 | WARNING  | sentinelsql.layer01.context_builder | Zero Trust: clearance downgraded TOP_SECRET → INTERNAL for user=superadmin (device_trust=unmanaged, fingerprint=home-laptop-123)
+2026-02-26 13:02:04 | WARNING  | sentinelsql.layer01.context_builder | Zero Trust: clearance downgraded SECRET → INTERNAL for user=admin.suresh (device_trust=unmanaged, fingerprint=personal-iphone)
+2026-02-26 13:02:04 | WARNING  | sentinelsql.auth.routes      | >>> [LOGIN] ✗ FAILED — Invalid credentials for username='dr.arjun'
+2026-02-26 13:02:04 | WARNING  | sentinelsql.auth.routes      | >>> [LOGIN] ✗ FAILED — Invalid credentials for username='nonexistent.user'
+2026-02-26 13:02:06 | WARNING  | sentinelsql.auth.routes      | >>> [TOKEN] INVALID — Session token is invalid or tampered: Invalid header string: 'utf-8' codec can't decode byte 0x8a in position 0: invalid start byte
+2026-02-26 13:02:07 | WARNING  | sentinelsql.auth.routes      | >>> [TOKEN] FAILED — Authorization header missing 'Bearer ' prefix
+2026-02-26 13:02:07 | WARNING  | sentinelsql.auth.routes      | >>> [TOKEN] INVALID — Session token is invalid or tampered: Signature verification failed.
+2026-02-26 13:02:08 | WARNING  | sentinelsql.auth.routes      | >>> [TOKEN] INVALID — Session token is invalid or tampered: Not enough segments
+2026-02-26 13:02:08 | WARNING  | sentinelsql.auth.routes      | >>> [TOKEN] FAILED — Authorization header missing 'Bearer ' prefix
+2026-02-26 13:45:42 | WARNING  | sentinelsql.layer01.context_builder | Zero Trust: clearance downgraded SECRET → INTERNAL for user=admin.suresh (device_trust=unmanaged, fingerprint=personal-iphone)
+2026-02-26 13:45:42 | WARNING  | sentinelsql.layer01.context_builder | Zero Trust: clearance downgraded SECRET → INTERNAL for user=admin.suresh (device_trust=unknown, fingerprint=unknown)
+2026-02-26 13:45:42 | WARNING  | sentinelsql.layer01.context_builder | Zero Trust: clearance downgraded TOP_SECRET → INTERNAL for user=superadmin (device_trust=unmanaged, fingerprint=home-laptop-123)
+2026-02-26 13:45:42 | WARNING  | sentinelsql.layer01.context_builder | Zero Trust: clearance downgraded SECRET → INTERNAL for user=admin.suresh (device_trust=unmanaged, fingerprint=personal-iphone)
+2026-02-26 13:45:43 | WARNING  | sentinelsql.auth.routes      | >>> [LOGIN] ✗ FAILED — Invalid credentials for username='dr.arjun'
+2026-02-26 13:45:43 | WARNING  | sentinelsql.auth.routes      | >>> [LOGIN] ✗ FAILED — Invalid credentials for username='nonexistent.user'
+2026-02-26 13:45:45 | WARNING  | sentinelsql.auth.routes      | >>> [TOKEN] INVALID — Session token is invalid or tampered: Invalid header string: 'utf-8' codec can't decode byte 0x8a in position 0: invalid start byte
+2026-02-26 13:45:45 | WARNING  | sentinelsql.auth.routes      | >>> [TOKEN] FAILED — Authorization header missing 'Bearer ' prefix
+2026-02-26 13:45:45 | WARNING  | sentinelsql.auth.routes      | >>> [TOKEN] INVALID — Session token is invalid or tampered: Signature verification failed.
+2026-02-26 13:45:46 | WARNING  | sentinelsql.auth.routes      | >>> [TOKEN] INVALID — Session token is invalid or tampered: Not enough segments
+2026-02-26 13:45:46 | WARNING  | sentinelsql.auth.routes      | >>> [TOKEN] FAILED — Authorization header missing 'Bearer ' prefix
+2026-02-26 13:47:13 | WARNING  | sentinelsql.layer01.context_builder | Zero Trust: clearance downgraded SECRET → INTERNAL for user=admin.suresh (device_trust=unmanaged, fingerprint=personal-iphone)
+2026-02-26 13:47:13 | WARNING  | sentinelsql.layer01.context_builder | Zero Trust: clearance downgraded SECRET → INTERNAL for user=admin.suresh (device_trust=unknown, fingerprint=unknown)
+2026-02-26 13:47:13 | WARNING  | sentinelsql.layer01.context_builder | Zero Trust: clearance downgraded TOP_SECRET → INTERNAL for user=superadmin (device_trust=unmanaged, fingerprint=home-laptop-123)
+2026-02-26 13:47:13 | WARNING  | sentinelsql.layer01.context_builder | Zero Trust: clearance downgraded SECRET → INTERNAL for user=admin.suresh (device_trust=unmanaged, fingerprint=personal-iphone)
+2026-02-26 13:47:13 | WARNING  | sentinelsql.auth.routes      | >>> [LOGIN] ✗ FAILED — Invalid credentials for username='dr.arjun'
+2026-02-26 13:47:13 | WARNING  | sentinelsql.auth.routes      | >>> [LOGIN] ✗ FAILED — Invalid credentials for username='nonexistent.user'
+2026-02-26 13:47:16 | WARNING  | sentinelsql.auth.routes      | >>> [TOKEN] INVALID — Session token is invalid or tampered: Invalid header string: 'utf-8' codec can't decode byte 0x8a in position 0: invalid start byte
+2026-02-26 13:47:16 | WARNING  | sentinelsql.auth.routes      | >>> [TOKEN] FAILED — Authorization header missing 'Bearer ' prefix
+2026-02-26 13:47:16 | WARNING  | sentinelsql.auth.routes      | >>> [TOKEN] INVALID — Session token is invalid or tampered: Signature verification failed.
+2026-02-26 13:47:18 | WARNING  | sentinelsql.auth.routes      | >>> [TOKEN] INVALID — Session token is invalid or tampered: Not enough segments
+2026-02-26 13:47:18 | WARNING  | sentinelsql.auth.routes      | >>> [TOKEN] FAILED — Authorization header missing 'Bearer ' prefix
+2026-02-26 14:15:29 | WARNING  | sentinelsql.layer01.context_builder | Zero Trust: clearance downgraded SECRET → INTERNAL for user=admin.suresh (device_trust=unmanaged, fingerprint=personal-iphone)
+2026-02-26 14:15:29 | WARNING  | sentinelsql.layer01.context_builder | Zero Trust: clearance downgraded SECRET → INTERNAL for user=admin.suresh (device_trust=unknown, fingerprint=unknown)
+2026-02-26 14:15:29 | WARNING  | sentinelsql.layer01.context_builder | Zero Trust: clearance downgraded TOP_SECRET → INTERNAL for user=superadmin (device_trust=unmanaged, fingerprint=home-laptop-123)
+2026-02-26 14:15:29 | WARNING  | sentinelsql.layer01.context_builder | Zero Trust: clearance downgraded SECRET → INTERNAL for user=admin.suresh (device_trust=unmanaged, fingerprint=personal-iphone)
+2026-02-26 14:15:29 | WARNING  | sentinelsql.auth.routes      | >>> [LOGIN] ✗ FAILED — Invalid credentials for username='dr.arjun'
+2026-02-26 14:15:29 | WARNING  | sentinelsql.auth.routes      | >>> [LOGIN] ✗ FAILED — Invalid credentials for username='nonexistent.user'
+2026-02-26 14:15:32 | WARNING  | sentinelsql.auth.routes      | >>> [TOKEN] INVALID — Session token is invalid or tampered: Invalid header string: 'utf-8' codec can't decode byte 0x8a in position 0: invalid start byte
+2026-02-26 14:15:32 | WARNING  | sentinelsql.auth.routes      | >>> [TOKEN] FAILED — Authorization header missing 'Bearer ' prefix
+2026-02-26 14:15:32 | WARNING  | sentinelsql.auth.routes      | >>> [TOKEN] INVALID — Session token is invalid or tampered: Signature verification failed.
+2026-02-26 14:15:33 | WARNING  | sentinelsql.auth.routes      | >>> [TOKEN] INVALID — Session token is invalid or tampered: Not enough segments
+2026-02-26 14:15:33 | WARNING  | sentinelsql.auth.routes      | >>> [TOKEN] FAILED — Authorization header missing 'Bearer ' prefix
+2026-02-26 14:16:44 | WARNING  | sentinelsql.layer01.context_builder | Zero Trust: clearance downgraded SECRET → INTERNAL for user=admin.suresh (device_trust=unmanaged, fingerprint=personal-iphone)
+2026-02-26 14:16:44 | WARNING  | sentinelsql.layer01.context_builder | Zero Trust: clearance downgraded SECRET → INTERNAL for user=admin.suresh (device_trust=unknown, fingerprint=unknown)
+2026-02-26 14:16:44 | WARNING  | sentinelsql.layer01.context_builder | Zero Trust: clearance downgraded TOP_SECRET → INTERNAL for user=superadmin (device_trust=unmanaged, fingerprint=home-laptop-123)
+2026-02-26 14:16:44 | WARNING  | sentinelsql.layer01.context_builder | Zero Trust: clearance downgraded SECRET → INTERNAL for user=admin.suresh (device_trust=unmanaged, fingerprint=personal-iphone)
+2026-02-26 14:16:45 | WARNING  | sentinelsql.auth.routes      | >>> [LOGIN] ✗ FAILED — Invalid credentials for username='dr.arjun'
+2026-02-26 14:16:45 | WARNING  | sentinelsql.auth.routes      | >>> [LOGIN] ✗ FAILED — Invalid credentials for username='nonexistent.user'
+2026-02-26 14:16:47 | WARNING  | sentinelsql.auth.routes      | >>> [TOKEN] INVALID — Session token is invalid or tampered: Invalid header string: 'utf-8' codec can't decode byte 0x8a in position 0: invalid start byte
+2026-02-26 14:16:47 | WARNING  | sentinelsql.auth.routes      | >>> [TOKEN] FAILED — Authorization header missing 'Bearer ' prefix
+2026-02-26 14:16:47 | WARNING  | sentinelsql.auth.routes      | >>> [TOKEN] INVALID — Session token is invalid or tampered: Signature verification failed.
+2026-02-26 14:16:48 | WARNING  | sentinelsql.auth.routes      | >>> [TOKEN] INVALID — Session token is invalid or tampered: Not enough segments
+2026-02-26 14:16:48 | WARNING  | sentinelsql.auth.routes      | >>> [TOKEN] FAILED — Authorization header missing 'Bearer ' prefix
+2026-02-26 15:53:23 | WARNING  | sentinelsql.layer01.context_builder | Zero Trust: clearance downgraded SECRET → INTERNAL for user=admin.suresh (device_trust=unmanaged, fingerprint=personal-iphone)
+2026-02-26 15:53:23 | WARNING  | sentinelsql.layer01.context_builder | Zero Trust: clearance downgraded SECRET → INTERNAL for user=admin.suresh (device_trust=unknown, fingerprint=unknown)
+2026-02-26 15:53:23 | WARNING  | sentinelsql.layer01.context_builder | Zero Trust: clearance downgraded TOP_SECRET → INTERNAL for user=superadmin (device_trust=unmanaged, fingerprint=home-laptop-123)
+2026-02-26 15:53:23 | WARNING  | sentinelsql.layer01.context_builder | Zero Trust: clearance downgraded SECRET → INTERNAL for user=admin.suresh (device_trust=unmanaged, fingerprint=personal-iphone)
+2026-02-26 15:53:24 | WARNING  | sentinelsql.auth.routes      | >>> [LOGIN] ✗ FAILED — Invalid credentials for username='dr.arjun'
+2026-02-26 15:53:24 | WARNING  | sentinelsql.auth.routes      | >>> [LOGIN] ✗ FAILED — Invalid credentials for username='nonexistent.user'
+2026-02-26 15:53:28 | WARNING  | sentinelsql.auth.routes      | >>> [TOKEN] INVALID — Session token is invalid or tampered: Invalid header string: 'utf-8' codec can't decode byte 0x8a in position 0: invalid start byte
+2026-02-26 15:53:28 | WARNING  | sentinelsql.auth.routes      | >>> [TOKEN] FAILED — Authorization header missing 'Bearer ' prefix
+2026-02-26 15:53:29 | WARNING  | sentinelsql.auth.routes      | >>> [TOKEN] INVALID — Session token is invalid or tampered: Signature verification failed.
+2026-02-26 15:53:31 | WARNING  | sentinelsql.auth.routes      | >>> [TOKEN] INVALID — Session token is invalid or tampered: Not enough segments
+2026-02-26 15:53:31 | WARNING  | sentinelsql.auth.routes      | >>> [TOKEN] FAILED — Authorization header missing 'Bearer ' prefix
+2026-02-26 15:54:17 | WARNING  | sentinelsql.layer01.context_builder | Zero Trust: clearance downgraded SECRET → INTERNAL for user=admin.suresh (device_trust=unmanaged, fingerprint=personal-iphone)
+2026-02-26 15:54:17 | WARNING  | sentinelsql.layer01.context_builder | Zero Trust: clearance downgraded SECRET → INTERNAL for user=admin.suresh (device_trust=unknown, fingerprint=unknown)
+2026-02-26 15:54:17 | WARNING  | sentinelsql.layer01.context_builder | Zero Trust: clearance downgraded TOP_SECRET → INTERNAL for user=superadmin (device_trust=unmanaged, fingerprint=home-laptop-123)
+2026-02-26 15:54:17 | WARNING  | sentinelsql.layer01.context_builder | Zero Trust: clearance downgraded SECRET → INTERNAL for user=admin.suresh (device_trust=unmanaged, fingerprint=personal-iphone)
+2026-02-26 15:54:18 | WARNING  | sentinelsql.auth.routes      | >>> [LOGIN] ✗ FAILED — Invalid credentials for username='dr.arjun'
+2026-02-26 15:54:18 | WARNING  | sentinelsql.auth.routes      | >>> [LOGIN] ✗ FAILED — Invalid credentials for username='nonexistent.user'
+2026-02-26 15:54:21 | WARNING  | sentinelsql.auth.routes      | >>> [TOKEN] INVALID — Session token is invalid or tampered: Invalid header string: 'utf-8' codec can't decode byte 0x8a in position 0: invalid start byte
+2026-02-26 15:54:21 | WARNING  | sentinelsql.auth.routes      | >>> [TOKEN] FAILED — Authorization header missing 'Bearer ' prefix
+2026-02-26 15:54:22 | WARNING  | sentinelsql.auth.routes      | >>> [TOKEN] INVALID — Session token is invalid or tampered: Signature verification failed.
+2026-02-26 15:54:23 | WARNING  | sentinelsql.auth.routes      | >>> [TOKEN] INVALID — Session token is invalid or tampered: Not enough segments
+2026-02-26 15:54:23 | WARNING  | sentinelsql.auth.routes      | >>> [TOKEN] FAILED — Authorization header missing 'Bearer ' prefix
+2026-03-02 11:07:53 | WARNING  | sentinelsql.auth.routes      | >>> [LOGIN] ✗ FAILED — Invalid credentials for username='dr.arjun'
+2026-03-02 11:07:56 | WARNING  | sentinelsql.auth.routes      | >>> [LOGIN] ✗ FAILED — Invalid credentials for username='dr.arjun'
+2026-03-02 15:19:59 | ERROR    | sentinelsql.neo4j_profile_store | Failed to initialize Neo4j driver: The config settings "encrypted", "trusted_certificates", and "ssl_context" can only be used with the URI schemes ['bolt', 'neo4j']. Use the other URI schemes ['bolt+ssc', 'bolt+s', 'neo4j+ssc', 'neo4j+s'] for setting encryption settings.
+2026-03-02 15:21:54 | ERROR    | sentinelsql.neo4j_profile_store | Error checking user status for dr.arjun: {neo4j_code: Neo.ClientError.Security.Unauthorized} {message: The client is unauthorized due to authentication failure.} {gql_status: 42NFF} {gql_status_description: error: syntax error or access rule violation - permission/access denied. Access denied, see the security logs for details.}
+2026-03-02 15:21:54 | ERROR    | sentinelsql.auth.routes      | >>> [LOGIN] ✗ SecurityContext build FAILED — Account 'dr.arjun' is deprovisioned or suspended
+2026-03-02 15:38:42 | ERROR    | sentinelsql.neo4j_profile_store | Error checking user status for dr.arjun: {neo4j_code: Neo.ClientError.Security.Unauthorized} {message: The client is unauthorized due to authentication failure.} {gql_status: 42NFF} {gql_status_description: error: syntax error or access rule violation - permission/access denied. Access denied, see the security logs for details.}
+2026-03-02 15:38:42 | ERROR    | sentinelsql.auth.routes      | >>> [LOGIN] ✗ SecurityContext build FAILED — Account 'dr.arjun' is deprovisioned or suspended
+2026-03-02 15:41:22 | ERROR    | sentinelsql.neo4j_profile_store | Error checking user status for dr-patel-4521: {neo4j_code: Neo.ClientError.Security.Unauthorized} {message: The client is unauthorized due to authentication failure.} {gql_status: 42NFF} {gql_status_description: error: syntax error or access rule violation - permission/access denied. Access denied, see the security logs for details.}
+2026-03-02 15:41:22 | ERROR    | sentinelsql.auth.routes      | >>> [LOGIN] ✗ SecurityContext build FAILED — Account 'dr-patel-4521' is deprovisioned or suspended
+2026-03-02 15:42:38 | ERROR    | sentinelsql.neo4j_profile_store | Error checking user status for dr-patel-4521: {neo4j_code: Neo.ClientError.Security.Unauthorized} {message: The client is unauthorized due to authentication failure.} {gql_status: 42NFF} {gql_status_description: error: syntax error or access rule violation - permission/access denied. Access denied, see the security logs for details.}
+2026-03-02 15:42:38 | ERROR    | sentinelsql.auth.routes      | >>> [LOGIN] ✗ SecurityContext build FAILED — Account 'dr-patel-4521' is deprovisioned or suspended
+2026-03-02 15:51:57 | ERROR    | sentinelsql.neo4j_profile_store | Error checking user status for dr-patel-4521: {neo4j_code: Neo.ClientError.Security.Unauthorized} {message: The client is unauthorized due to authentication failure.} {gql_status: 42NFF} {gql_status_description: error: syntax error or access rule violation - permission/access denied. Access denied, see the security logs for details.}
+2026-03-02 15:51:57 | ERROR    | sentinelsql.auth.routes      | >>> [LOGIN] ✗ SecurityContext build FAILED — Account 'dr-patel-4521' is deprovisioned or suspended
+2026-03-02 15:51:59 | ERROR    | sentinelsql.neo4j_profile_store | Error checking user status for dr-patel-4521: {neo4j_code: Neo.ClientError.Security.Unauthorized} {message: The client is unauthorized due to authentication failure.} {gql_status: 42NFF} {gql_status_description: error: syntax error or access rule violation - permission/access denied. Access denied, see the security logs for details.}
+2026-03-02 15:51:59 | ERROR    | sentinelsql.auth.routes      | >>> [LOGIN] ✗ SecurityContext build FAILED — Account 'dr-patel-4521' is deprovisioned or suspended
+2026-03-02 15:58:33 | ERROR    | sentinelsql.neo4j_profile_store | Error checking user status for dr-patel-4521: {neo4j_code: Neo.ClientError.Security.Unauthorized} {message: The client is unauthorized due to authentication failure.} {gql_status: 42NFF} {gql_status_description: error: syntax error or access rule violation - permission/access denied. Access denied, see the security logs for details.}
+2026-03-02 15:58:33 | ERROR    | sentinelsql.auth.routes      | >>> [LOGIN] ✗ SecurityContext build FAILED — Account 'dr-patel-4521' is deprovisioned or suspended
+2026-03-02 16:00:52 | ERROR    | sentinelsql.neo4j_profile_store | Error checking user status for dr-patel-4521: Failed to DNS resolve address 342034a8.databases.neo4j.io:7687: [Errno 11001] getaddrinfo failed
+2026-03-02 16:00:52 | ERROR    | sentinelsql.auth.routes      | >>> [LOGIN] ✗ SecurityContext build FAILED — Account 'dr-patel-4521' is deprovisioned or suspended
+2026-03-02 16:00:56 | ERROR    | sentinelsql.neo4j_profile_store | Error checking user status for dr-patel-4521: Failed to DNS resolve address 342034a8.databases.neo4j.io:7687: [Errno 11001] getaddrinfo failed
+2026-03-02 16:00:56 | ERROR    | sentinelsql.auth.routes      | >>> [LOGIN] ✗ SecurityContext build FAILED — Account 'dr-patel-4521' is deprovisioned or suspended
+2026-03-02 16:01:55 | ERROR    | sentinelsql.neo4j_profile_store | Error checking user status for dr-patel-4521: Failed to DNS resolve address 342034a8.databases.neo4j.io:7687: [Errno 11001] getaddrinfo failed
+2026-03-02 16:01:55 | ERROR    | sentinelsql.auth.routes      | >>> [LOGIN] ✗ SecurityContext build FAILED — Account 'dr-patel-4521' is deprovisioned or suspended
+2026-03-02 16:02:20 | ERROR    | sentinelsql.neo4j_profile_store | Error checking user status for dr-patel-4521: Failed to DNS resolve address 342034a8.databases.neo4j.io:7687: [Errno 11001] getaddrinfo failed
+2026-03-02 16:02:20 | ERROR    | sentinelsql.auth.routes      | >>> [LOGIN] ✗ SecurityContext build FAILED — Account 'dr-patel-4521' is deprovisioned or suspended
+2026-03-02 16:02:23 | ERROR    | sentinelsql.neo4j_profile_store | Error checking user status for dr-patel-4521: Failed to DNS resolve address 342034a8.databases.neo4j.io:7687: [Errno 11001] getaddrinfo failed
+2026-03-02 16:02:23 | ERROR    | sentinelsql.auth.routes      | >>> [LOGIN] ✗ SecurityContext build FAILED — Account 'dr-patel-4521' is deprovisioned or suspended
+2026-03-02 16:10:50 | ERROR    | sentinelsql.neo4j_profile_store | Error checking user status for dr-patel-4521: {neo4j_code: Neo.ClientError.Security.Unauthorized} {message: The client is unauthorized due to authentication failure.} {gql_status: 42NFF} {gql_status_description: error: syntax error or access rule violation - permission/access denied. Access denied, see the security logs for details.}
+2026-03-02 16:10:50 | ERROR    | sentinelsql.auth.routes      | >>> [LOGIN] ✗ SecurityContext build FAILED — Account 'dr-patel-4521' is deprovisioned or suspended
+2026-03-02 16:37:28 | WARNING  | sentinelsql.auth.routes      | >>> [LOGIN] ✗ FAILED — Invalid credentials for username='dr.arjun'
+2026-03-02 16:57:03 | WARNING  | sentinelsql.auth.routes      | >>> [LOGIN] ✗ FAILED — Invalid credentials for username='dr.arjun'
+2026-03-02 17:15:10 | WARNING  | sentinelsql.neo4j_profile_store | User not found in Neo4j: dr-patel-4521
+2026-03-02 17:15:10 | ERROR    | sentinelsql.auth.routes      | >>> [LOGIN] ✗ SecurityContext build FAILED — Account 'dr-patel-4521' is deprovisioned or suspended
+2026-03-02 17:15:54 | WARNING  | sentinelsql.neo4j_profile_store | User not found in Neo4j: dr-patel-4521
+2026-03-02 17:15:54 | ERROR    | sentinelsql.auth.routes      | >>> [LOGIN] ✗ SecurityContext build FAILED — Account 'dr-patel-4521' is deprovisioned or suspended
+2026-03-02 17:59:43 | WARNING  | sentinelsql.neo4j_profile_store | User not found in Neo4j: dr-patel-4521
+2026-03-02 17:59:43 | ERROR    | sentinelsql.auth.routes      | >>> [LOGIN] ✗ SecurityContext build FAILED — Account 'dr-patel-4521' is deprovisioned or suspended
+2026-03-02 21:39:43 | WARNING  | sentinelsql.neo4j_profile_store | User not found in Neo4j: dr-sharma-1102
+2026-03-02 21:39:43 | ERROR    | sentinelsql.auth.routes      | >>> [LOGIN] ✗ SecurityContext build FAILED — Account 'dr-sharma-1102' is deprovisioned or suspended
+2026-03-03 16:52:02 | WARNING  | sentinelsql.auth.routes      | >>> [LOGIN] ✗ FAILED — Invalid credentials for username='dr.arjun'
+2026-03-03 18:24:46 | WARNING  | sentinelsql.auth.routes      | >>> [TOKEN] INVALID — Session token is invalid: Invalid audience
+2026-03-03 18:24:59 | WARNING  | sentinelsql.auth.routes      | >>> [TOKEN] INVALID — Session token is invalid: Invalid audience
+2026-03-03 18:25:24 | WARNING  | sentinelsql.auth.routes      | >>> [TOKEN] INVALID — Session token is invalid: Invalid audience
+2026-03-03 18:25:53 | WARNING  | sentinelsql.auth.routes      | >>> [TOKEN] INVALID — Session token is invalid: Invalid audience
+2026-03-03 18:26:10 | WARNING  | sentinelsql.auth.routes      | >>> [TOKEN] INVALID — Session token is invalid: Invalid audience
+2026-03-03 18:26:40 | WARNING  | sentinelsql.auth.routes      | >>> [TOKEN] INVALID — Session token is invalid: Invalid audience
