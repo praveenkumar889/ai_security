@@ -29085,3 +29085,209 @@
 2026-03-04 16:40:34 | INFO     | sentinelsql.auth.routes      | >>> [LOGOUT] TODO (production): Add token JTI to Redis denylist
 2026-03-04 16:40:34 | INFO     | sentinelsql.auth.routes      | 
 2026-03-04 16:40:34 | DEBUG    | sentinelsql.main             | >>> [HTTP] GET / — serving login page
+2026-03-04 16:50:36 | DEBUG    | sentinelsql.main             | >>> [HTTP] GET / — serving login page
+2026-03-04 16:50:44 | INFO     | sentinelsql.auth.routes      | 
+2026-03-04 16:50:44 | INFO     | sentinelsql.auth.routes      | ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+2026-03-04 16:50:44 | INFO     | sentinelsql.auth.routes      | >>> [LOGIN] ══════════ LOGIN ATTEMPT ══════════
+2026-03-04 16:50:44 | INFO     | sentinelsql.auth.routes      | >>> [LOGIN] Username      : dr-sharma-1102
+2026-03-04 16:50:44 | INFO     | sentinelsql.auth.routes      | >>> [LOGIN] Password      : **********
+2026-03-04 16:50:44 | INFO     | sentinelsql.auth.routes      | >>> [LOGIN] Device FP     : unknown
+2026-03-04 16:50:44 | INFO     | sentinelsql.auth.routes      | >>> [LOGIN] Client IP     : 127.0.0.1
+2026-03-04 16:50:44 | INFO     | sentinelsql.auth.routes      | ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+2026-03-04 16:50:44 | INFO     | sentinelsql.auth.routes      | >>> [LOGIN] Step 1/5 — Validating credentials against mock store...
+2026-03-04 16:50:44 | INFO     | sentinelsql.auth.routes      | >>> [LOGIN] ✓ Credentials valid
+2026-03-04 16:50:44 | INFO     | sentinelsql.auth.routes      |             display_name  = Dr. Priya Sharma
+2026-03-04 16:50:44 | INFO     | sentinelsql.auth.routes      |             role          = Consulting_Physician
+2026-03-04 16:50:44 | INFO     | sentinelsql.auth.routes      |             is_active     = True
+2026-03-04 16:50:44 | INFO     | sentinelsql.auth.routes      | 
+2026-03-04 16:50:44 | INFO     | sentinelsql.auth.routes      | >>> [LOGIN] Step 2/5 — Building IdPClaims (simulates OAuth2 IdP response)...
+2026-03-04 16:50:44 | INFO     | sentinelsql.auth.routes      | >>> [LOGIN] ✓ IdPClaims built
+2026-03-04 16:50:44 | INFO     | sentinelsql.auth.routes      |             sub               = dr-sharma-1102
+2026-03-04 16:50:44 | INFO     | sentinelsql.auth.routes      |             email             = dr-sharma-1102@apollohospitals.com
+2026-03-04 16:50:44 | INFO     | sentinelsql.auth.routes      |             preferred_username = Dr. Priya Sharma
+2026-03-04 16:50:44 | INFO     | sentinelsql.auth.routes      |             issuer            = mock-apollo-idp
+2026-03-04 16:50:44 | INFO     | sentinelsql.auth.routes      | 
+2026-03-04 16:50:44 | INFO     | sentinelsql.auth.routes      | >>> [LOGIN] Step 3/5 — Building SecurityContext (context_builder.py)...
+2026-03-04 16:50:46 | INFO     | sentinelsql.auth.routes      | >>> [LOGIN] ✓ SecurityContext assembled
+2026-03-04 16:50:46 | INFO     | sentinelsql.auth.routes      |             user_id          = dr-sharma-1102
+2026-03-04 16:50:46 | INFO     | sentinelsql.auth.routes      |             session_id       = 081fe333-c57b-4508-8415-8e9628811577
+2026-03-04 16:50:46 | INFO     | sentinelsql.auth.routes      |             department       = Oncology
+2026-03-04 16:50:46 | INFO     | sentinelsql.auth.routes      |             unit             = None
+2026-03-04 16:50:46 | INFO     | sentinelsql.auth.routes      |             facility         = None
+2026-03-04 16:50:46 | INFO     | sentinelsql.auth.routes      |             clearance_level  = PUBLIC
+2026-03-04 16:50:46 | INFO     | sentinelsql.auth.routes      |             device_trust     = unknown
+2026-03-04 16:50:46 | INFO     | sentinelsql.auth.routes      |             raw_roles        = ['Consulting_Physician']
+2026-03-04 16:50:46 | INFO     | sentinelsql.auth.routes      |             issued_at        = 1772623246
+2026-03-04 16:50:46 | INFO     | sentinelsql.auth.routes      |             expires_at       = 1772624146  (+900s)
+2026-03-04 16:50:46 | INFO     | sentinelsql.auth.routes      | 
+2026-03-04 16:50:46 | INFO     | sentinelsql.auth.routes      | >>> [LOGIN] Step 4/5 — Resolving role hierarchy (role_resolver.py)...
+2026-03-04 16:50:46 | INFO     | sentinelsql.auth.routes      | >>> [LOGIN] Input  : ['Consulting_Physician']
+2026-03-04 16:50:46 | INFO     | sentinelsql.auth.routes      | >>> [LOGIN] ✓ BFS traversal complete — effective roles:
+2026-03-04 16:50:46 | INFO     | sentinelsql.auth.routes      |             + Consulting_Physician
+2026-03-04 16:50:46 | INFO     | sentinelsql.auth.routes      | 
+2026-03-04 16:50:46 | INFO     | sentinelsql.auth.routes      | >>> [LOGIN] Step 5/5 — Signing JWT session token (session_token.py)...
+2026-03-04 16:50:46 | INFO     | sentinelsql.auth.routes      | >>> [LOGIN] ✓ JWT signed successfully
+2026-03-04 16:50:46 | INFO     | sentinelsql.auth.routes      |             Algorithm    = HS256
+2026-03-04 16:50:46 | INFO     | sentinelsql.auth.routes      |             Token length = 1703 chars
+2026-03-04 16:50:46 | INFO     | sentinelsql.auth.routes      |             Preview      = eyJhbGciOiJSUzI1NiIsInR5c...HqwRg1c05jE7NwQ
+2026-03-04 16:50:46 | INFO     | sentinelsql.auth.routes      | 
+2026-03-04 16:50:46 | INFO     | sentinelsql.auth.routes      | >>> [LOGIN] ✅ LOGIN SUCCESS
+2026-03-04 16:50:46 | INFO     | sentinelsql.auth.routes      |             User         = Dr. Priya Sharma  (dr-sharma-1102)
+2026-03-04 16:50:46 | INFO     | sentinelsql.auth.routes      |             Clearance    = PUBLIC
+2026-03-04 16:50:46 | INFO     | sentinelsql.auth.routes      |             Department   = Oncology
+2026-03-04 16:50:46 | INFO     | sentinelsql.auth.routes      |             Facility     = None
+2026-03-04 16:50:46 | INFO     | sentinelsql.auth.routes      |             Device Trust = unknown
+2026-03-04 16:50:46 | INFO     | sentinelsql.auth.routes      |             Session ID   = 081fe333-c57b-4508-8415-8e9628811577
+2026-03-04 16:50:46 | INFO     | sentinelsql.auth.routes      |             Expires in   = 900s (15 minutes)
+2026-03-04 16:50:46 | INFO     | sentinelsql.auth.routes      | ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+2026-03-04 16:50:46 | INFO     | sentinelsql.auth.routes      | 
+2026-03-04 16:50:46 | DEBUG    | sentinelsql.main             | >>> [HTTP] GET /dashboard — serving dashboard page
+2026-03-04 16:50:46 | DEBUG    | sentinelsql.auth.routes      | >>> [TOKEN] Verifying session token from Authorization header...
+2026-03-04 16:50:46 | DEBUG    | sentinelsql.auth.routes      | >>> [TOKEN] JWT received: eyJhbGciOiJSUzI1NiIs...1c05jE7NwQ (1703 chars)
+2026-03-04 16:50:46 | DEBUG    | sentinelsql.auth.routes      | >>> [TOKEN] Verified ✓ | user=dr-sharma-1102 | session=081fe333-c57b-4508-8415-8e9628811577 | expires_in=900s
+2026-03-04 16:50:46 | INFO     | sentinelsql.auth.routes      | 
+2026-03-04 16:50:46 | INFO     | sentinelsql.auth.routes      | >>> [/me] Dashboard data request | user=dr-sharma-1102 | session=081fe333-c57b-4508-8415-8e9628811577
+2026-03-04 16:50:46 | INFO     | sentinelsql.auth.routes      | >>> [/me] ✓ Profile found — returning dashboard data
+2026-03-04 16:50:46 | INFO     | sentinelsql.auth.routes      |           display_name    = Dr. Priya Sharma
+2026-03-04 16:50:46 | INFO     | sentinelsql.auth.routes      |           role            = Consulting_Physician
+2026-03-04 16:50:46 | INFO     | sentinelsql.auth.routes      |           clearance       = PUBLIC
+2026-03-04 16:50:46 | INFO     | sentinelsql.auth.routes      |           device_trust    = unknown
+2026-03-04 16:50:46 | INFO     | sentinelsql.auth.routes      |           effective_roles = ['Consulting_Physician']
+2026-03-04 16:50:47 | INFO     | sentinelsql.auth.routes      |           permissions     = 4 cards
+2026-03-04 16:50:47 | INFO     | sentinelsql.auth.routes      | 
+2026-03-04 16:50:48 | INFO     | sentinelsql.auth.routes      | 
+2026-03-04 16:50:48 | INFO     | sentinelsql.auth.routes      | >>> [LOGOUT] User logged out | client=127.0.0.1
+2026-03-04 16:50:48 | INFO     | sentinelsql.auth.routes      | >>> [LOGOUT] Token cleared client-side (stateless JWT design)
+2026-03-04 16:50:48 | INFO     | sentinelsql.auth.routes      | >>> [LOGOUT] TODO (production): Add token JTI to Redis denylist
+2026-03-04 16:50:48 | INFO     | sentinelsql.auth.routes      | 
+2026-03-04 16:50:48 | DEBUG    | sentinelsql.main             | >>> [HTTP] GET / — serving login page
+2026-03-04 16:51:19 | INFO     | sentinelsql.auth.routes      | 
+2026-03-04 16:51:19 | INFO     | sentinelsql.auth.routes      | ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+2026-03-04 16:51:19 | INFO     | sentinelsql.auth.routes      | >>> [LOGIN] ══════════ LOGIN ATTEMPT ══════════
+2026-03-04 16:51:19 | INFO     | sentinelsql.auth.routes      | >>> [LOGIN] Username      : bill-suresh-5530
+2026-03-04 16:51:19 | INFO     | sentinelsql.auth.routes      | >>> [LOGIN] Password      : **********
+2026-03-04 16:51:19 | INFO     | sentinelsql.auth.routes      | >>> [LOGIN] Device FP     : unknown
+2026-03-04 16:51:19 | INFO     | sentinelsql.auth.routes      | >>> [LOGIN] Client IP     : 127.0.0.1
+2026-03-04 16:51:19 | INFO     | sentinelsql.auth.routes      | ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+2026-03-04 16:51:19 | INFO     | sentinelsql.auth.routes      | >>> [LOGIN] Step 1/5 — Validating credentials against mock store...
+2026-03-04 16:51:20 | INFO     | sentinelsql.auth.routes      | >>> [LOGIN] ✓ Credentials valid
+2026-03-04 16:51:20 | INFO     | sentinelsql.auth.routes      |             display_name  = Suresh Gupta
+2026-03-04 16:51:20 | INFO     | sentinelsql.auth.routes      |             role          = Revenue_Cycle_Analyst
+2026-03-04 16:51:20 | INFO     | sentinelsql.auth.routes      |             is_active     = True
+2026-03-04 16:51:20 | INFO     | sentinelsql.auth.routes      | 
+2026-03-04 16:51:20 | INFO     | sentinelsql.auth.routes      | >>> [LOGIN] Step 2/5 — Building IdPClaims (simulates OAuth2 IdP response)...
+2026-03-04 16:51:20 | INFO     | sentinelsql.auth.routes      | >>> [LOGIN] ✓ IdPClaims built
+2026-03-04 16:51:20 | INFO     | sentinelsql.auth.routes      |             sub               = bill-suresh-5530
+2026-03-04 16:51:20 | INFO     | sentinelsql.auth.routes      |             email             = bill-suresh-5530@apollohospitals.com
+2026-03-04 16:51:20 | INFO     | sentinelsql.auth.routes      |             preferred_username = Suresh Gupta
+2026-03-04 16:51:20 | INFO     | sentinelsql.auth.routes      |             issuer            = mock-apollo-idp
+2026-03-04 16:51:20 | INFO     | sentinelsql.auth.routes      | 
+2026-03-04 16:51:20 | INFO     | sentinelsql.auth.routes      | >>> [LOGIN] Step 3/5 — Building SecurityContext (context_builder.py)...
+2026-03-04 16:51:20 | INFO     | sentinelsql.auth.routes      | >>> [LOGIN] ✓ SecurityContext assembled
+2026-03-04 16:51:20 | INFO     | sentinelsql.auth.routes      |             user_id          = bill-suresh-5530
+2026-03-04 16:51:20 | INFO     | sentinelsql.auth.routes      |             session_id       = 1c345b2c-dc56-4be2-ad47-4b46b5aaa827
+2026-03-04 16:51:20 | INFO     | sentinelsql.auth.routes      |             department       = Billing & Revenue Cycle
+2026-03-04 16:51:20 | INFO     | sentinelsql.auth.routes      |             unit             = None
+2026-03-04 16:51:20 | INFO     | sentinelsql.auth.routes      |             facility         = None
+2026-03-04 16:51:20 | INFO     | sentinelsql.auth.routes      |             clearance_level  = PUBLIC
+2026-03-04 16:51:20 | INFO     | sentinelsql.auth.routes      |             device_trust     = unknown
+2026-03-04 16:51:20 | INFO     | sentinelsql.auth.routes      |             raw_roles        = ['Revenue_Cycle_Analyst']
+2026-03-04 16:51:20 | INFO     | sentinelsql.auth.routes      |             issued_at        = 1772623281
+2026-03-04 16:51:20 | INFO     | sentinelsql.auth.routes      |             expires_at       = 1772624181  (+900s)
+2026-03-04 16:51:20 | INFO     | sentinelsql.auth.routes      | 
+2026-03-04 16:51:20 | INFO     | sentinelsql.auth.routes      | >>> [LOGIN] Step 4/5 — Resolving role hierarchy (role_resolver.py)...
+2026-03-04 16:51:20 | INFO     | sentinelsql.auth.routes      | >>> [LOGIN] Input  : ['Revenue_Cycle_Analyst']
+2026-03-04 16:51:21 | INFO     | sentinelsql.auth.routes      | >>> [LOGIN] ✓ BFS traversal complete — effective roles:
+2026-03-04 16:51:21 | INFO     | sentinelsql.auth.routes      |             + Billing_Staff
+2026-03-04 16:51:21 | INFO     | sentinelsql.auth.routes      |             + Employee
+2026-03-04 16:51:21 | INFO     | sentinelsql.auth.routes      |             + Revenue_Cycle_Analyst
+2026-03-04 16:51:21 | INFO     | sentinelsql.auth.routes      | >>> [LOGIN] ✓ Neo4j Roles dictate Clearance Level: SECRET
+2026-03-04 16:51:21 | INFO     | sentinelsql.auth.routes      | 
+2026-03-04 16:51:21 | INFO     | sentinelsql.auth.routes      | >>> [LOGIN] Step 5/5 — Signing JWT session token (session_token.py)...
+2026-03-04 16:51:21 | INFO     | sentinelsql.auth.routes      | >>> [LOGIN] ✓ JWT signed successfully
+2026-03-04 16:51:21 | INFO     | sentinelsql.auth.routes      |             Algorithm    = HS256
+2026-03-04 16:51:21 | INFO     | sentinelsql.auth.routes      |             Token length = 1756 chars
+2026-03-04 16:51:21 | INFO     | sentinelsql.auth.routes      |             Preview      = eyJhbGciOiJSUzI1NiIsInR5c...OzQL64b0BaCwxEg
+2026-03-04 16:51:21 | INFO     | sentinelsql.auth.routes      | 
+2026-03-04 16:51:21 | INFO     | sentinelsql.auth.routes      | >>> [LOGIN] ✅ LOGIN SUCCESS
+2026-03-04 16:51:21 | INFO     | sentinelsql.auth.routes      |             User         = Suresh Gupta  (bill-suresh-5530)
+2026-03-04 16:51:21 | INFO     | sentinelsql.auth.routes      |             Clearance    = ClearanceLevel.SECRET
+2026-03-04 16:51:21 | INFO     | sentinelsql.auth.routes      |             Department   = Billing & Revenue Cycle
+2026-03-04 16:51:21 | INFO     | sentinelsql.auth.routes      |             Facility     = None
+2026-03-04 16:51:21 | INFO     | sentinelsql.auth.routes      |             Device Trust = unknown
+2026-03-04 16:51:21 | INFO     | sentinelsql.auth.routes      |             Session ID   = 1c345b2c-dc56-4be2-ad47-4b46b5aaa827
+2026-03-04 16:51:21 | INFO     | sentinelsql.auth.routes      |             Expires in   = 900s (15 minutes)
+2026-03-04 16:51:21 | INFO     | sentinelsql.auth.routes      | ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+2026-03-04 16:51:21 | INFO     | sentinelsql.auth.routes      | 
+2026-03-04 16:51:21 | DEBUG    | sentinelsql.main             | >>> [HTTP] GET /dashboard — serving dashboard page
+2026-03-04 16:51:21 | DEBUG    | sentinelsql.auth.routes      | >>> [TOKEN] Verifying session token from Authorization header...
+2026-03-04 16:51:21 | DEBUG    | sentinelsql.auth.routes      | >>> [TOKEN] JWT received: eyJhbGciOiJSUzI1NiIs...4b0BaCwxEg (1756 chars)
+2026-03-04 16:51:21 | DEBUG    | sentinelsql.auth.routes      | >>> [TOKEN] Verified ✓ | user=bill-suresh-5530 | session=1c345b2c-dc56-4be2-ad47-4b46b5aaa827 | expires_in=899s
+2026-03-04 16:51:21 | INFO     | sentinelsql.auth.routes      | 
+2026-03-04 16:51:21 | INFO     | sentinelsql.auth.routes      | >>> [/me] Dashboard data request | user=bill-suresh-5530 | session=1c345b2c-dc56-4be2-ad47-4b46b5aaa827
+2026-03-04 16:51:21 | INFO     | sentinelsql.auth.routes      | >>> [/me] ✓ Profile found — returning dashboard data
+2026-03-04 16:51:21 | INFO     | sentinelsql.auth.routes      |           display_name    = Suresh Gupta
+2026-03-04 16:51:21 | INFO     | sentinelsql.auth.routes      |           role            = Revenue_Cycle_Analyst
+2026-03-04 16:51:21 | INFO     | sentinelsql.auth.routes      |           clearance       = SECRET
+2026-03-04 16:51:21 | INFO     | sentinelsql.auth.routes      |           device_trust    = unknown
+2026-03-04 16:51:21 | INFO     | sentinelsql.auth.routes      |           effective_roles = ['Billing_Staff', 'Employee', 'Revenue_Cycle_Analyst']
+2026-03-04 16:51:21 | INFO     | sentinelsql.auth.routes      |           permissions     = 4 cards
+2026-03-04 16:51:21 | INFO     | sentinelsql.auth.routes      | 
+2026-03-04 16:55:13 | INFO     | sentinelsql.main             | 
+2026-03-04 16:55:13 | INFO     | sentinelsql.main             | >>> [SHUTDOWN] SentinelSQL shutting down...
+2026-03-04 16:55:13 | INFO     | sentinelsql.main             | >>> [SHUTDOWN] Goodbye.
+2026-03-04 16:55:14 | DEBUG    | sentinelsql.main             | >>> [LOGGING] Logging system initialized
+2026-03-04 16:55:14 | DEBUG    | sentinelsql.main             | >>> [LOGGING] Level          = DEBUG
+2026-03-04 16:55:14 | DEBUG    | sentinelsql.main             | >>> [LOGGING] Terminal       = color output enabled
+2026-03-04 16:55:14 | DEBUG    | sentinelsql.main             | >>> [LOGGING] app.log        = C:\sentinelSQL\logs\app.log
+2026-03-04 16:55:14 | DEBUG    | sentinelsql.main             | >>> [LOGGING] errors.log     = C:\sentinelSQL\logs\errors.log
+2026-03-04 16:55:14 | DEBUG    | sentinelsql.main             | >>> [LOGGING] Rotation       = 5MB max, 5 backups
+2026-03-04 16:55:15 | INFO     | sentinelsql.main             | 
+2026-03-04 16:55:15 | INFO     | sentinelsql.main             | ======================================================================
+2026-03-04 16:55:15 | INFO     | sentinelsql.main             |   SentinelSQL — Apollo Hospitals Auth Layer
+2026-03-04 16:55:15 | INFO     | sentinelsql.main             |   Layer 01: Identity & Context
+2026-03-04 16:55:15 | INFO     | sentinelsql.main             | ======================================================================
+2026-03-04 16:55:15 | INFO     | sentinelsql.main             | 
+2026-03-04 16:55:15 | INFO     | sentinelsql.main             | >>> [STARTUP] Initializing Neo4j user profile store...
+2026-03-04 16:55:15 | INFO     | sentinelsql.main             | >>> [STARTUP] ✓ Neo4j profile store ready
+2026-03-04 16:55:15 | INFO     | sentinelsql.main             | 
+2026-03-04 16:55:15 | INFO     | sentinelsql.main             | >>> [STARTUP] Initializing device trust registry...
+2026-03-04 16:55:15 | DEBUG    | sentinelsql.main             |     Registered managed device: corp-device-abc123
+2026-03-04 16:55:15 | DEBUG    | sentinelsql.main             |     Registered managed device: corp-device-def456
+2026-03-04 16:55:15 | INFO     | sentinelsql.main             | >>> [STARTUP] Device registry ready (2 managed devices) ✓
+2026-03-04 16:55:15 | INFO     | sentinelsql.main             | 
+2026-03-04 16:55:15 | INFO     | sentinelsql.main             | >>> [STARTUP] Initializing SecurityContextBuilder...
+2026-03-04 16:55:15 | INFO     | sentinelsql.main             | >>> [STARTUP] SecurityContextBuilder ready ✓
+2026-03-04 16:55:15 | INFO     | sentinelsql.main             | 
+2026-03-04 16:55:15 | INFO     | sentinelsql.main             | >>> [STARTUP] Initializing Neo4j role resolver...
+2026-03-04 16:55:16 | INFO     | sentinelsql.main             | >>> [STARTUP] ✓ Neo4j role resolver ready (66 roles)
+2026-03-04 16:55:16 | INFO     | sentinelsql.main             | 
+2026-03-04 16:55:16 | INFO     | sentinelsql.main             | >>> [STARTUP] Initializing RS256 session token issuer...
+2026-03-04 16:55:16 | INFO     | sentinelsql.main             | >>> [STARTUP] Token issuer ready (algo=RS256, ttl=900s) ✓
+2026-03-04 16:55:16 | INFO     | sentinelsql.main             | 
+2026-03-04 16:55:16 | INFO     | sentinelsql.main             | ======================================================================
+2026-03-04 16:55:16 | INFO     | sentinelsql.main             |   DEMO ACCOUNTS  (password: Apollo@123)
+2026-03-04 16:55:16 | INFO     | sentinelsql.main             | ======================================================================
+2026-03-04 16:55:16 | INFO     | sentinelsql.main             |   USERNAME              ROLE                       CLEARANCE      
+2026-03-04 16:55:16 | INFO     | sentinelsql.main             |   ----------------------------------------------------------------
+2026-03-04 16:55:16 | INFO     | sentinelsql.main             |   dr-patel-4521         Attending_Physician        From Neo4j DB  
+2026-03-04 16:55:16 | INFO     | sentinelsql.main             |   dr-sharma-1102        Consulting_Physician       From Neo4j DB  
+2026-03-04 16:55:16 | INFO     | sentinelsql.main             |   dr-reddy-2233         Emergency_Physician        From Neo4j DB  
+2026-03-04 16:55:16 | INFO     | sentinelsql.main             |   dr-iyer-3301          Psychiatrist               From Neo4j DB  
+2026-03-04 16:55:16 | INFO     | sentinelsql.main             |   nurse-kumar-2847      Registered_Nurse           From Neo4j DB  
+2026-03-04 16:55:16 | INFO     | sentinelsql.main             |   nurse-nair-3102       ICU_Nurse                  From Neo4j DB  
+2026-03-04 16:55:16 | INFO     | sentinelsql.main             |   nurse-singh-4455      Head_Nurse                 From Neo4j DB  
+2026-03-04 16:55:16 | INFO     | sentinelsql.main             |   bill-maria-5521       Billing_Clerk              From Neo4j DB  
+2026-03-04 16:55:16 | INFO     | sentinelsql.main             |   bill-suresh-5530      Revenue_Cycle_Analyst      From Neo4j DB  
+2026-03-04 16:55:16 | INFO     | sentinelsql.main             |   rev-james-6601        Revenue_Cycle_Manager      From Neo4j DB  
+2026-03-04 16:55:16 | INFO     | sentinelsql.main             |   hr-priya-7701         HR_Manager                 From Neo4j DB  
+2026-03-04 16:55:16 | INFO     | sentinelsql.main             |   hr-dir-kapoor         HR_Director                From Neo4j DB  
+2026-03-04 16:55:16 | INFO     | sentinelsql.main             |   it-admin-7801         IT_Administrator           From Neo4j DB  
+2026-03-04 16:55:16 | INFO     | sentinelsql.main             |   hipaa-officer         HIPAA_Privacy_Officer      From Neo4j DB  
+2026-03-04 16:55:16 | INFO     | sentinelsql.main             |   researcher-das        Clinical_Researcher        From Neo4j DB  
+2026-03-04 16:55:16 | INFO     | sentinelsql.main             | ======================================================================
+2026-03-04 16:55:16 | INFO     | sentinelsql.main             |   Server   : http://localhost:8000
+2026-03-04 16:55:16 | INFO     | sentinelsql.main             |   API Docs : http://localhost:8000/api/docs
+2026-03-04 16:55:16 | INFO     | sentinelsql.main             |   Logs dir : C:\sentinelSQL\logs
+2026-03-04 16:55:16 | INFO     | sentinelsql.main             | ======================================================================
+2026-03-04 16:55:16 | INFO     | sentinelsql.main             | 

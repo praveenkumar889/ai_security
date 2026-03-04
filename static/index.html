@@ -665,12 +665,8 @@
       </div>
       <div class="divider"></div>
 
-      <div class="pill-lbl">Sign in as</div>
-      <div class="pills">
-        <div class="pill active" data-u="dr.arjun">🩺 Doctor</div>
-        <div class="pill" data-u="nurse.priya">💉 Nurse</div>
-        <div class="pill" data-u="pharma.ravi">💊 Pharmacist</div>
-      </div>
+      <!-- Unified Login -->
+
 
       <div class="err" id="errMsg"><span>⚠</span><span id="errTxt">Invalid credentials</span></div>
 
@@ -678,13 +674,13 @@
         <div class="field">
           <label class="field-lbl" for="un">Username</label>
           <div class="fw"><span class="fi">👤</span>
-            <input type="text" id="un" name="username" placeholder="Enter username" value="dr.arjun" required />
+            <input type="text" id="un" name="username" placeholder="Enter username" value="" required />
           </div>
         </div>
         <div class="field">
           <label class="field-lbl" for="pw">Password</label>
           <div class="fw"><span class="fi">🔑</span>
-            <input type="password" id="pw" name="password" placeholder="Enter password" value="Apollo@123" required />
+            <input type="password" id="pw" name="password" placeholder="Enter password" value="" required />
             <button type="button" class="tpw" id="tpw">👁</button>
           </div>
         </div>
@@ -699,15 +695,7 @@
   </div>
 
   <script>
-    document.querySelectorAll('.pill').forEach(p => {
-      p.addEventListener('click', () => {
-        document.querySelectorAll('.pill').forEach(x => x.classList.remove('active'));
-        p.classList.add('active');
-        document.getElementById('un').value = p.dataset.u;
-        document.getElementById('pw').value = 'Apollo@123';
-        hide();
-      });
-    });
+
     document.getElementById('tpw').addEventListener('click', () => {
       const f = document.getElementById('pw');
       f.type = f.type === 'password' ? 'text' : 'password';
