@@ -75,6 +75,9 @@ class SecurityContext(BaseModel):
         description="Max data sensitivity this user may see"
     )
 
+    # Domain access
+    allowed_domains: list[str] = Field(default_factory=list, description="Data domains this user may query")
+
     # Session metadata
     session_id:    str = Field(default_factory=lambda: str(uuid.uuid4()))
     device_trust:  DeviceTrust = DeviceTrust.UNKNOWN

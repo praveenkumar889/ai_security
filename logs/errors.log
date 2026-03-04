@@ -143,3 +143,5 @@
 2026-03-03 18:25:53 | WARNING  | sentinelsql.auth.routes      | >>> [TOKEN] INVALID — Session token is invalid: Invalid audience
 2026-03-03 18:26:10 | WARNING  | sentinelsql.auth.routes      | >>> [TOKEN] INVALID — Session token is invalid: Invalid audience
 2026-03-03 18:26:40 | WARNING  | sentinelsql.auth.routes      | >>> [TOKEN] INVALID — Session token is invalid: Invalid audience
+2026-03-04 11:22:56 | WARNING  | sentinelsql.auth.routes      | >>> [LOGIN] ✗ FAILED — Invalid credentials for username='dr.arjun'
+2026-03-04 12:23:25 | WARNING  | sentinelsql.auth.routes      | >>> [LOGIN] ✗ FAILED — Invalid credentials for username='dr.arjun'
