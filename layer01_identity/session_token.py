@@ -159,93 +159,37 @@ class RS256SessionTokenIssuer(BaseSessionTokenIssuer):
         exp_iso = datetime.utcfromtimestamp(exp_ts).isoformat() + "Z"
         jti = str(_uuid.uuid4())
 
-        # ── Build the nested payload structure ──
+        # ── Expanded Payload (per user request) ──
         payload = {
-            # Top-level metadata
-            "ctx_id": f"ctx_{context.session_id.replace('-', '')[:10]}",
-            "version": "2.0",
-            "oid": f"oid-{context.user_id}",
-            "sub": f"oid-{context.user_id}",
-
-            # Top-level role claims (for quick access by downstream layers)
-            "direct_roles": context.raw_roles or [],
-            "effective_roles": context.effective_roles or [],
-            "allowed_domains": context.allowed_domains or [],
-
-            # ── identity block ──
-            "identity": {
-                "oid": f"oid-{context.user_id}",
-                "name": context.username,
-                "email": context.email,
-                "jti": jti,
-                "mfa_verified": True,
-                "auth_methods": ["pwd", "mfa"],
-            },
-
-            # ── org_context block ──
-            "org_context": {
-                "employee_id": f"DR-{context.user_id.split('-')[-1]}" if context.user_id else "DR-0001",
-                "department": context.department or "Unknown",
-                "facility_ids": ["FAC-001"],
-                "unit_ids": ["UNIT-1A-APJH", "UNIT-1B-APJH"],
-                "provider_npi": "NPI-1234567890",
-                "license_type": "MD",
-                "employment_status": "ACTIVE",
-            },
-
-            # ── authorization block ──
-            "authorization": {
-                "direct_roles": context.raw_roles or ["Unknown_Role"],
-                "effective_roles": context.effective_roles or ["Unknown_Effective_Role"],
-                "groups": [f"clinical-{(context.department or 'general').lower()}"],
-                "domain": "CLINICAL",
-                "clearance_level": ClearanceLevel(context.clearance_level).numeric if isinstance(context.clearance_level, str) else 1,
-                "sensitivity_cap": ClearanceLevel(context.clearance_level).numeric if isinstance(context.clearance_level, str) else 1,
-                "bound_policies": ["CLIN-001", "HIPAA-001"],
-            },
-
-            # ── request_metadata block ──
-            "request_metadata": {
-                "ip_address": "10.0.0.1",
-                "user_agent": "SentinelSQL-Dashboard/1.0",
-                "timestamp": now_iso,
-                "session_id": f"ses_{context.session_id}",
-            },
-
-            # ── emergency block ──
-            "emergency": {
-                "mode": "NONE",
-            },
-
-            # ── timing fields ──
-            "ttl_seconds": self._ttl,
-            "created_at": now_iso,
-            "expires_at": exp_iso,
-
-            # ── Standard JWT registered claims ──
-            "iss": "https://login.microsoftonline.com/apollo-mock-tenant/v2.0",
-            "aud": "apollo-zt-pipeline",
-            "iat": now,
-            "nbf": now,
+            "user_id": context.user_id,
+            "username": context.username,
+            "email": context.email,
+            "raw_roles": context.raw_roles,
+            "effective_roles": context.effective_roles,
+            "department": context.department,
+            "clearance_level": context.clearance_level,
+            "session_id": context.session_id,
+            "issued_at": context.issued_at,
+            "expires_at": context.expires_at,
+            "idp_issuer": context.idp_issuer,
+            "auth_method": context.auth_method,
             "exp": exp_ts,
+            "iat": now,
+            "ctx_token": f"ctx_{context.session_id.replace('-', '')}",
+            "signature": hashlib.sha256(f"{context.user_id}-{context.session_id}".encode()).hexdigest(),
+            "expires_in": int(self._ttl),
+            "created_at": now_iso,
+            "aud": "apollo-zt-pipeline",
+            "nbf": now,
             "jti": jti,
-
-            # ── SecurityContext fields needed for verify() reconstruction ──
-            "_sc": {
-                "user_id": context.user_id,
-                "username": context.username,
-                #"email": context.email,
-                #"raw_roles": context.raw_roles,
-                # "effective_roles": context.effective_roles,
-                "department": context.department,
-                # "clearance_level": context.clearance_level,
-                # "allowed_domains": context.allowed_domains,
-                "session_id": context.session_id,
-                "issued_at": context.issued_at,
-                "expires_at": context.expires_at,
-                "idp_issuer": context.idp_issuer,
-                "auth_method": context.auth_method,
-            },
+            "iss": "https://login.microsoftonline.com/apollo-mock-tenant/v2.0",
+            "oid": f"oid-{context.user_id}",
+            "name": context.username,
+            "domain": "CLINICAL",
+            "direct_roles": context.raw_roles,
+            "sensitivity_cap": ClearanceLevel(context.clearance_level).numeric if isinstance(context.clearance_level, str) else getattr(context.clearance_level, 'numeric', 1),
+            "mfa_verified": True,
+            "emergency_mode": "NONE",
         }
 
         token = jwt.encode(payload, self._private_key, algorithm=self.ALGORITHM)
@@ -266,20 +210,22 @@ class RS256SessionTokenIssuer(BaseSessionTokenIssuer):
         except JWTError as e:
             raise TokenError(f"Session token is invalid: {e}") from e
 
-        # Extract SecurityContext from _sc block + other JWT sections
-        sc_data = claims.get("_sc", {})
-        if not sc_data:
-            raise TokenError("Token missing _sc context block — cannot reconstruct security context")
-
-        # Supplement _sc with fields stored in other JWT blocks
-        identity = claims.get("identity", {})
-        authorization = claims.get("authorization", {})
-
-        sc_data.setdefault("email", identity.get("email", ""))
-        sc_data.setdefault("raw_roles", claims.get("direct_roles", authorization.get("direct_roles", [])))
-        sc_data.setdefault("effective_roles", claims.get("effective_roles", authorization.get("effective_roles", [])))
-        sc_data.setdefault("clearance_level", authorization.get("clearance_level", "PUBLIC"))
-        sc_data.setdefault("allowed_domains", claims.get("allowed_domains", []))
+        # Reconstruct SecurityContext from the expanded payload
+        sc_data = {
+            "user_id": claims.get("user_id"),
+            "username": claims.get("username"),
+            "email": claims.get("email"),
+            "raw_roles": claims.get("raw_roles", []),
+            "effective_roles": claims.get("effective_roles", []),
+            "department": claims.get("department"),
+            "clearance_level": claims.get("clearance_level", "PUBLIC"),
+            "session_id": claims.get("session_id"),
+            "issued_at": claims.get("issued_at", claims.get("iat", time.time())),
+            "expires_at": claims.get("expires_at", claims.get("exp", time.time())),
+            "idp_issuer": claims.get("idp_issuer"),
+            "auth_method": claims.get("auth_method", "oauth2"),
+            "device_trust": "unknown"
+        }
 
         context = SecurityContext(**sc_data)
         if context.is_expired():
