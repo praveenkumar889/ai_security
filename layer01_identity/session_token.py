@@ -22,6 +22,7 @@ from abc import ABC, abstractmethod
 from typing import Literal
 
 from jose import jwt, JWTError
+import uuid
 
 from .models import SecurityContext, ClearanceLevel
 
@@ -62,7 +63,7 @@ class HS256SessionTokenIssuer(BaseSessionTokenIssuer):
 
     ALGORITHM = "HS256"
 
-    def __init__(self, secret_key: str | None = None, ttl_seconds: int = 900):
+    def __init__(self, secret_key: str | None = None, ttl_seconds: int = 3600):
         self._secret = secret_key or os.environ.get("SENTINELSQL_SESSION_SECRET")
         if not self._secret:
             raise EnvironmentError(
@@ -74,13 +75,23 @@ class HS256SessionTokenIssuer(BaseSessionTokenIssuer):
         self._ttl = ttl_seconds
 
     def issue(self, context: SecurityContext) -> str:
-        payload = context.model_dump(exclude={'unit', 'facility', 'facility_id', 'provider_id', 'device_trust'})
-        # Ensure expiry is set correctly from TTL
-        payload["exp"] = time.time() + self._ttl
-        payload["iat"] = time.time()
+        now = time.time()
+        exp = now + self._ttl
+        payload = {
+            "user_id": context.user_id,
+            "username": context.username,
+            "role": context.raw_roles[0] if context.raw_roles else "User",
+            "department": context.department,
+            "exp": exp,
+            "iat": now,
+            "nbf": now,
+            "iss": "https://login.microsoftonline.com/apollo-mock-tenant/v2.0",
+            "aud": "apollo-zt-pipeline",
+            "oid": f"oid-{context.user_id}",
+            "jti": str(uuid.uuid4())
+        }
         token = jwt.encode(payload, self._secret, algorithm=self.ALGORITHM)
-        logger.debug("Session token issued for user=%s session=%s",
-                     context.user_id, context.session_id)
+        logger.debug("Session token issued for user=%s", context.user_id)
         
         # Added print statement to display the JWT token in the terminal
         print(f"\n=== NEW JWT TOKEN GENERATED ===\n{token}\n================================\n")
@@ -103,11 +114,25 @@ class HS256SessionTokenIssuer(BaseSessionTokenIssuer):
         except JWTError as e:
             raise TokenError(f"Session token is invalid or tampered: {e}") from e
 
-        context = SecurityContext(**claims)
+        # Reconstruct SecurityContext from minimal payload
+        sc_data = {
+            "user_id": claims.get("user_id"),
+            "username": claims.get("username"),
+            "email": f"{claims.get('user_id')}@apollo.local",
+            "raw_roles": [claims.get("role")] if claims.get("role") else [],
+            "effective_roles": [claims.get("role")] if claims.get("role") else [],
+            "department": claims.get("department"),
+            "session_id": claims.get("jti", str(uuid.uuid4())),
+            "issued_at": claims.get("iat", time.time()),
+            "expires_at": claims.get("exp", time.time()),
+            "idp_issuer": claims.get("iss"),
+            "auth_method": "oauth2",
+            "device_trust": "unknown"
+        }
+
+        context = SecurityContext(**sc_data)
 
         # Single expiry check — uses time.time() so monkeypatching works in tests.
-        # This is also defense-in-depth: catches tokens whose exp claim was
-        # manually crafted to bypass jose's check.
         if context.is_expired():
             raise TokenError("Session token has expired — re-authenticate")
 
@@ -135,7 +160,7 @@ class RS256SessionTokenIssuer(BaseSessionTokenIssuer):
         self,
         private_key: str | None = None,
         public_key: str | None = None,
-        ttl_seconds: int = 900,
+        ttl_seconds: int = 3600,
     ):
         self._private_key = private_key or self._load_from_env("SENTINELSQL_PRIVATE_KEY")
         self._public_key  = public_key  or self._load_from_env("SENTINELSQL_PUBLIC_KEY")
@@ -149,47 +174,21 @@ class RS256SessionTokenIssuer(BaseSessionTokenIssuer):
         return val.replace("\\n", "\n")  # Handle newlines in env vars
 
     def issue(self, context: SecurityContext) -> str:
-        from datetime import datetime, timezone
-        import hashlib
-        import uuid as _uuid
-
         now = time.time()
-        now_iso = datetime.utcfromtimestamp(now).isoformat() + "Z"
-        exp_ts = now + self._ttl
-        exp_iso = datetime.utcfromtimestamp(exp_ts).isoformat() + "Z"
-        jti = str(_uuid.uuid4())
-
-        # ── Expanded Payload (per user request) ──
+        exp = now + self._ttl
+        
         payload = {
             "user_id": context.user_id,
             "username": context.username,
-            "email": context.email,
-            "raw_roles": context.raw_roles,
-            "effective_roles": context.effective_roles,
+            "role": context.raw_roles[0] if context.raw_roles else "User",
             "department": context.department,
-            "clearance_level": context.clearance_level,
-            "session_id": context.session_id,
-            "issued_at": context.issued_at,
-            "expires_at": context.expires_at,
-            "idp_issuer": context.idp_issuer,
-            "auth_method": context.auth_method,
-            "exp": exp_ts,
+            "exp": exp,
             "iat": now,
-            "ctx_token": f"ctx_{context.session_id.replace('-', '')}",
-            "signature": hashlib.sha256(f"{context.user_id}-{context.session_id}".encode()).hexdigest(),
-            "expires_in": int(self._ttl),
-            "created_at": now_iso,
-            "aud": "apollo-zt-pipeline",
             "nbf": now,
-            "jti": jti,
             "iss": "https://login.microsoftonline.com/apollo-mock-tenant/v2.0",
+            "aud": "apollo-zt-pipeline",
             "oid": f"oid-{context.user_id}",
-            "name": context.username,
-            "domain": "CLINICAL",
-            "direct_roles": context.raw_roles,
-            "sensitivity_cap": ClearanceLevel(context.clearance_level).numeric if isinstance(context.clearance_level, str) else getattr(context.clearance_level, 'numeric', 1),
-            "mfa_verified": True,
-            "emergency_mode": "NONE",
+            "jti": str(uuid.uuid4())
         }
 
         token = jwt.encode(payload, self._private_key, algorithm=self.ALGORITHM)
@@ -210,20 +209,19 @@ class RS256SessionTokenIssuer(BaseSessionTokenIssuer):
         except JWTError as e:
             raise TokenError(f"Session token is invalid: {e}") from e
 
-        # Reconstruct SecurityContext from the expanded payload
+        # Reconstruct SecurityContext from minimal payload
         sc_data = {
             "user_id": claims.get("user_id"),
             "username": claims.get("username"),
-            "email": claims.get("email"),
-            "raw_roles": claims.get("raw_roles", []),
-            "effective_roles": claims.get("effective_roles", []),
+            "email": f"{claims.get('user_id')}@apollo.local",
+            "raw_roles": [claims.get("role")] if claims.get("role") else [],
+            "effective_roles": [claims.get("role")] if claims.get("role") else [],
             "department": claims.get("department"),
-            "clearance_level": claims.get("clearance_level", "PUBLIC"),
-            "session_id": claims.get("session_id"),
-            "issued_at": claims.get("issued_at", claims.get("iat", time.time())),
-            "expires_at": claims.get("expires_at", claims.get("exp", time.time())),
-            "idp_issuer": claims.get("idp_issuer"),
-            "auth_method": claims.get("auth_method", "oauth2"),
+            "session_id": claims.get("jti", str(uuid.uuid4())),
+            "issued_at": claims.get("iat", time.time()),
+            "expires_at": claims.get("exp", time.time()),
+            "idp_issuer": claims.get("iss"),
+            "auth_method": "oauth2",
             "device_trust": "unknown"
         }
 
@@ -238,7 +236,7 @@ class RS256SessionTokenIssuer(BaseSessionTokenIssuer):
 
 def get_token_issuer(
     algorithm: Literal["HS256", "RS256"] = "HS256",
-    ttl_seconds: int = 900,
+    ttl_seconds: int = 3600,
     **kwargs,
 ) -> BaseSessionTokenIssuer:
     """

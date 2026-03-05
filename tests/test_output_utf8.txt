@@ -1,0 +1,32 @@
+﻿============================= test session starts =============================
+platform win32 -- Python 3.11.9, pytest-9.0.2, pluggy-1.6.0 -- C:\Users\gudal\AppData\Local\Programs\Python\Python311\python.exe
+cachedir: .pytest_cache
+rootdir: C:\sentinelSQL
+plugins: anyio-4.12.1, asyncio-1.3.0
+asyncio: mode=Mode.STRICT, debug=False, asyncio_default_fixture_loop_scope=None, asyncio_default_test_loop_scope=function
+collecting ... collected 57 items
+
+tests/test_layer01_complete.py::TestMockOAuth2Provider::test_validate_valid_token_returns_idp_claims PASSED [  1%]
+tests/test_layer01_complete.py::TestMockOAuth2Provider::test_validate_maps_all_standard_claims PASSED [  3%]
+tests/test_layer01_complete.py::TestMockOAuth2Provider::test_validate_maps_custom_clearance_claim PASSED [  5%]
+tests/test_layer01_complete.py::TestMockOAuth2Provider::test_validate_multiple_groups PASSED [  7%]
+tests/test_layer01_complete.py::TestMockOAuth2Provider::test_wrong_secret_raises_auth_error PASSED [  8%]
+tests/test_layer01_complete.py::TestMockOAuth2Provider::test_wrong_audience_raises_auth_error PASSED [ 10%]
+tests/test_layer01_complete.py::TestMockOAuth2Provider::test_wrong_issuer_raises_auth_error PASSED [ 12%]
+tests/test_layer01_complete.py::TestMockOAuth2Provider::test_expired_token_raises_auth_error PASSED [ 14%]
+tests/test_layer01_complete.py::TestMockOAuth2Provider::test_tampered_payload_raises_auth_error PASSED [ 15%]
+tests/test_layer01_complete.py::TestMockOAuth2Provider::test_malformed_token_raises_auth_error PASSED [ 17%]
+tests/test_layer01_complete.py::TestMockOAuth2Provider::test_empty_groups_maps_to_empty_list PASSED [ 19%]
+tests/test_layer01_complete.py::TestMockOAuth2Provider::test_full_idp_to_context_pipeline FAILED [ 21%]
+
+================================== FAILURES ===================================
+__________ TestMockOAuth2Provider.test_full_idp_to_context_pipeline ___________
+tests\test_layer01_complete.py:410: in test_full_idp_to_context_pipeline
+    assert "DATA_ANALYST" in context.effective_roles  # inherited
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E   AssertionError: assert 'DATA_ANALYST' in ['ADMIN']
+E    +  where ['ADMIN'] = SecurityContext(user_id='admin.suresh', username='admin.suresh', email='admin.suresh@apollohospitals.com', raw_roles=['ADMIN'], effective_roles=['ADMIN'], department='Administration', unit='Operations', facility='Apollo Hyderabad', facility_id=None, provider_id=None, clearance_level='SECRET', allowed_domains=[], session_id='ce67c695-48d8-4d56-b745-5a8a55d0e32b', device_trust='managed', issued_at=1772704191.9026217, expires_at=1772705091.9026217, idp_issuer='https://mock-apollo-idp.local', auth_method='oauth2').effective_roles
+=========================== short test summary info ===========================
+FAILED tests/test_layer01_complete.py::TestMockOAuth2Provider::test_full_idp_to_context_pipeline
+!!!!!!!!!!!!!!!!!!!!!!!!!! stopping after 1 failures !!!!!!!!!!!!!!!!!!!!!!!!!!
+======================== 1 failed, 11 passed in 1.48s =========================

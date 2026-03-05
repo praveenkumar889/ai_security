@@ -116,7 +116,7 @@ async def lifespan(app: FastAPI):
     logger.info(">>> [STARTUP] Initializing RS256 session token issuer...")
     try:
         app.state.token_issuer = RS256SessionTokenIssuer()
-        logger.info(">>> [STARTUP] Token issuer ready (algo=RS256, ttl=900s) ✓")
+        logger.info(">>> [STARTUP] Token issuer ready (algo=RS256, ttl=3600s) ✓")
     except Exception as e:
         logger.error(f"    CRITICAL: Failed to load RS256 keys from .env! {e}")
 

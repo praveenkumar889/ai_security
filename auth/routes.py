@@ -175,7 +175,7 @@ async def login(
     logger.info("            device_trust     = %s", context.device_trust)
     logger.info("            raw_roles        = %s", context.raw_roles)
     logger.info("            issued_at        = %.0f", context.issued_at)
-    logger.info("            expires_at       = %.0f  (+900s)", context.expires_at)
+    logger.info("            expires_at       = %.0f  (+3600s)", context.expires_at)
 
     # ── Step 4: Resolve role hierarchy ────────────────────────────────────
     logger.info("")
@@ -219,7 +219,7 @@ async def login(
     logger.info("            Facility     = %s", context.facility)
     logger.info("            Device Trust = %s", context.device_trust)
     logger.info("            Session ID   = %s", context.session_id)
-    logger.info("            Expires in   = 900s (15 minutes)")
+    logger.info("            Expires in   = 3600s (60 minutes)")
     logger.info("━" * 65)
     logger.info("")
 
@@ -278,7 +278,22 @@ async def get_me(
     
     # Fetch additional metadata straight from the role resolver
     role_resolver: BaseRoleResolver = request.app.state.role_resolver
+    
+    # RE-RESOLVE: Expand roles and sync clearance level (since JWT is minimal)
+    context.effective_roles = role_resolver.resolve(context.raw_roles)
     metadata = role_resolver.get_role_metadata(context.effective_roles)
+    max_lvl = metadata.get("max_clearance_level")
+    
+    if max_lvl is not None:
+        level_map = {
+            0: ClearanceLevel.PUBLIC,
+            1: ClearanceLevel.INTERNAL,
+            2: ClearanceLevel.CONFIDENTIAL,
+            3: ClearanceLevel.SECRET,
+            4: ClearanceLevel.TOP_SECRET,
+        }
+        context.clearance_level = level_map.get(max_lvl, ClearanceLevel.PUBLIC)
+        logger.info("          clearance_sync  = %s (Level %d)", context.clearance_level, max_lvl)
     
     logger.info("          permissions     = %d cards", len(ui_meta.get("permissions", [])))
     logger.info("")

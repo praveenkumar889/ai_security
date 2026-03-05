@@ -1,0 +1,20 @@
+﻿============================= test session starts =============================
+platform win32 -- Python 3.11.9, pytest-9.0.2, pluggy-1.6.0 -- C:\Users\gudal\AppData\Local\Programs\Python\Python311\python.exe
+cachedir: .pytest_cache
+rootdir: C:\sentinelSQL
+plugins: anyio-4.12.1, asyncio-1.3.0
+asyncio: mode=Mode.STRICT, debug=False, asyncio_default_fixture_loop_scope=None, asyncio_default_test_loop_scope=function
+collecting ... collected 57 items / 56 deselected / 1 selected
+
+tests/test_layer01_complete.py::TestMockOAuth2Provider::test_full_idp_to_context_pipeline FAILED [100%]
+
+================================== FAILURES ===================================
+__________ TestMockOAuth2Provider.test_full_idp_to_context_pipeline ___________
+tests\test_layer01_complete.py:410: in test_full_idp_to_context_pipeline
+    assert "DATA_ANALYST" in context.effective_roles  # inherited
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E   AssertionError: assert 'DATA_ANALYST' in ['ADMIN']
+E    +  where ['ADMIN'] = SecurityContext(user_id='admin.suresh', username='admin.suresh', email='admin.suresh@apollohospitals.com', raw_roles=['ADMIN'], effective_roles=['ADMIN'], department='Administration', unit='Operations', facility='Apollo Hyderabad', facility_id=None, provider_id=None, clearance_level='SECRET', allowed_domains=[], session_id='257789f8-25b6-4a0a-94c5-a21ac124aff4', device_trust='managed', issued_at=1772704232.714969, expires_at=1772705132.714969, idp_issuer='https://mock-apollo-idp.local', auth_method='oauth2').effective_roles
+=========================== short test summary info ===========================
+FAILED tests/test_layer01_complete.py::TestMockOAuth2Provider::test_full_idp_to_context_pipeline
+====================== 1 failed, 56 deselected in 1.05s =======================

@@ -145,3 +145,29 @@
 2026-03-03 18:26:40 | WARNING  | sentinelsql.auth.routes      | >>> [TOKEN] INVALID — Session token is invalid: Invalid audience
 2026-03-04 11:22:56 | WARNING  | sentinelsql.auth.routes      | >>> [LOGIN] ✗ FAILED — Invalid credentials for username='dr.arjun'
 2026-03-04 12:23:25 | WARNING  | sentinelsql.auth.routes      | >>> [LOGIN] ✗ FAILED — Invalid credentials for username='dr.arjun'
+2026-03-05 14:44:56 | WARNING  | sentinelsql.auth.routes      | >>> [LOGIN] ✗ FAILED — Invalid credentials for username='hr-dir-kapoo'
+2026-03-05 15:07:30 | WARNING  | sentinelsql.layer01.context_builder | Zero Trust: clearance downgraded SECRET → INTERNAL for user=admin.suresh (device_trust=unmanaged, fingerprint=personal-iphone)
+2026-03-05 15:07:30 | WARNING  | sentinelsql.layer01.context_builder | Zero Trust: clearance downgraded SECRET → INTERNAL for user=admin.suresh (device_trust=unknown, fingerprint=unknown)
+2026-03-05 15:07:30 | WARNING  | sentinelsql.layer01.context_builder | Zero Trust: clearance downgraded TOP_SECRET → INTERNAL for user=superadmin (device_trust=unmanaged, fingerprint=home-laptop-123)
+2026-03-05 15:07:30 | WARNING  | sentinelsql.layer01.context_builder | Zero Trust: clearance downgraded SECRET → INTERNAL for user=admin.suresh (device_trust=unmanaged, fingerprint=personal-iphone)
+2026-03-05 15:07:31 | WARNING  | sentinelsql.auth.routes      | >>> [LOGIN] ✗ FAILED — Invalid credentials for username='dr.arjun'
+2026-03-05 15:07:31 | WARNING  | sentinelsql.auth.routes      | >>> [LOGIN] ✗ FAILED — Invalid credentials for username='dr.arjun'
+2026-03-05 15:07:31 | WARNING  | sentinelsql.auth.routes      | >>> [LOGIN] ✗ FAILED — Invalid credentials for username='admin.suresh'
+2026-03-05 15:07:31 | WARNING  | sentinelsql.auth.routes      | >>> [LOGIN] ✗ FAILED — Invalid credentials for username='dr.arjun'
+2026-03-05 15:07:31 | WARNING  | sentinelsql.auth.routes      | >>> [LOGIN] ✗ FAILED — Invalid credentials for username='nonexistent.user'
+2026-03-05 15:07:31 | WARNING  | sentinelsql.auth.routes      | >>> [LOGIN] ✗ FAILED — Invalid credentials for username='dr.arjun'
+2026-03-05 15:07:31 | WARNING  | sentinelsql.auth.routes      | >>> [LOGIN] ✗ FAILED — Invalid credentials for username='admin.suresh'
+2026-03-05 15:07:31 | WARNING  | sentinelsql.auth.routes      | >>> [LOGIN] ✗ FAILED — Invalid credentials for username='superadmin'
+2026-03-05 15:07:31 | WARNING  | sentinelsql.auth.routes      | >>> [LOGIN] ✗ FAILED — Invalid credentials for username='dr.arjun'
+2026-03-05 15:07:31 | WARNING  | sentinelsql.auth.routes      | >>> [LOGIN] ✗ FAILED — Invalid credentials for username='DR.ARJUN'
+2026-03-05 15:07:31 | WARNING  | sentinelsql.auth.routes      | >>> [LOGIN] ✗ FAILED — Invalid credentials for username='dr.arjun'
+2026-03-05 15:07:31 | WARNING  | sentinelsql.auth.routes      | >>> [LOGIN] ✗ FAILED — Invalid credentials for username='dr.arjun'
+2026-03-05 15:07:31 | WARNING  | sentinelsql.auth.routes      | >>> [LOGIN] ✗ FAILED — Invalid credentials for username='dr.arjun'
+2026-03-05 15:07:31 | WARNING  | sentinelsql.auth.routes      | >>> [LOGIN] ✗ FAILED — Invalid credentials for username='superadmin'
+2026-03-05 15:07:31 | WARNING  | sentinelsql.auth.routes      | >>> [TOKEN] INVALID — Session token is invalid: Invalid header string: 'utf-8' codec can't decode byte 0x8a in position 0: invalid start byte
+2026-03-05 15:07:31 | WARNING  | sentinelsql.auth.routes      | >>> [LOGIN] ✗ FAILED — Invalid credentials for username='dr.arjun'
+2026-03-05 15:07:32 | WARNING  | sentinelsql.auth.routes      | >>> [LOGIN] ✗ FAILED — Invalid credentials for username='dr.arjun'
+2026-03-05 15:07:32 | WARNING  | sentinelsql.auth.routes      | >>> [LOGIN] ✗ FAILED — Invalid credentials for username='dr.arjun'
+2026-03-05 15:07:32 | WARNING  | sentinelsql.auth.routes      | >>> [LOGIN] ✗ FAILED — Invalid credentials for username='dr.arjun'
+2026-03-05 15:07:32 | WARNING  | sentinelsql.auth.routes      | >>> [TOKEN] INVALID — Session token is invalid: Not enough segments
+2026-03-05 15:07:32 | WARNING  | sentinelsql.auth.routes      | >>> [TOKEN] FAILED — Authorization header missing 'Bearer ' prefix

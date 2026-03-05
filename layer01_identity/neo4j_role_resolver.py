@@ -53,7 +53,8 @@ class Neo4jRoleResolver(BaseRoleResolver):
             with self.driver.session(database=self.database) as session:
                 for role_name in direct_roles:
                     query = """
-                    MATCH (r:Role {name: $role_name, is_active: true})
+                    MATCH (r:Role)
+                    WHERE r.name =~ ('(?i)' + $role_name) AND r.is_active = true
                     OPTIONAL MATCH (r)-[:INHERITS_FROM*0..]->(ancestor:Role)
                     WHERE ancestor.is_active = true
                     RETURN DISTINCT ancestor.name AS role
@@ -66,8 +67,6 @@ class Neo4jRoleResolver(BaseRoleResolver):
                             effective_roles.add(record["role"])
                             found = True
                     
-                    # If not found in graph, at least include the direct role
-                    # to fulfill basic access.
                     if not found:
                         effective_roles.add(role_name)
 
